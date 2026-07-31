@@ -1,7 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { createServerSupabase } from "@/lib/supabase/server";
+import { signOut } from "@/actions/auth";
 
-export default function Header() {
+export default async function Header() {
+  const supabase = await createServerSupabase();
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <header className="sticky top-0 z-40 border-b border-beige bg-crema/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
@@ -12,9 +17,20 @@ export default function Header() {
         <nav className="flex items-center gap-5 text-sm">
           <Link href="/explorar" className="hover:text-terracota">Explorar</Link>
           <Link href="/verificacion" className="hover:text-terracota">El sello</Link>
-          <Link href="/cuenta" className="rounded-full bg-terracota px-4 py-1.5 text-crema hover:bg-cafe">
-            Entrar
-          </Link>
+          {user ? (
+            <>
+              <Link href="/panel" className="rounded-full bg-terracota px-4 py-1.5 text-crema hover:bg-cafe">
+                Mi panel
+              </Link>
+              <form action={signOut}>
+                <button className="hover:text-terracota">Salir</button>
+              </form>
+            </>
+          ) : (
+            <Link href="/cuenta" className="rounded-full bg-terracota px-4 py-1.5 text-crema hover:bg-cafe">
+              Entrar
+            </Link>
+          )}
         </nav>
       </div>
     </header>
