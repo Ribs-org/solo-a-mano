@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-terracota: #c05d3e;
+  --color-beige: #d9c7b8;
+  --color-crema: #f5efe6;
+  --color-cafe: #6e4f3a;
+  --color-ambar: #e0a96d;
+  --color-verde: #2e3b32;
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background-color: var(--color-crema);
+  color: var(--color-cafe);
+}
