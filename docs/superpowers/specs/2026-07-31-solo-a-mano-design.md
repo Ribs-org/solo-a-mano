@@ -63,7 +63,7 @@ El diferenciador es el **sello "Sólo A Mano"**: una verificación manual de que
 
 ### Notificaciones
 
-Al llegar una solicitud de verificación nueva, se envía un correo al admin (gptchatpro@gmail.com) con resumen y link al panel, vía Resend.
+Al llegar una solicitud de verificación nueva, se envía un correo al admin (parejavice@gmail.com) con resumen y link al panel, vía Resend.
 
 ## Diseño visual
 
