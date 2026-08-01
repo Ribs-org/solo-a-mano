@@ -14,6 +14,12 @@ export async function saveArtisanProfile(formData: FormData): Promise<{ error?: 
   const category = String(formData.get("main_category"));
   if (!CATEGORIES.some((c) => c.value === category)) return { error: "Categoría inválida." };
 
+  const safeUrl = (raw: FormDataEntryValue | null) => {
+    const v = String(raw ?? "").trim();
+    if (!v) return null;
+    return v.startsWith("https://") || v.startsWith("http://") ? v : null;
+  };
+
   const fields = {
     shop_name: shopName,
     story: String(formData.get("story") ?? "").trim(),
@@ -21,8 +27,8 @@ export async function saveArtisanProfile(formData: FormData): Promise<{ error?: 
     main_category: category,
     profile_photo_url: String(formData.get("profile_photo_url") ?? "") || null,
     cover_photo_url: String(formData.get("cover_photo_url") ?? "") || null,
-    instagram_url: String(formData.get("instagram_url") ?? "").trim() || null,
-    facebook_url: String(formData.get("facebook_url") ?? "").trim() || null,
+    instagram_url: safeUrl(formData.get("instagram_url")),
+    facebook_url: safeUrl(formData.get("facebook_url")),
     whatsapp_phone: String(formData.get("whatsapp_phone") ?? "").trim() || null,
     contact_email: String(formData.get("contact_email") ?? "").trim() || null,
   };
@@ -35,6 +41,7 @@ export async function saveArtisanProfile(formData: FormData): Promise<{ error?: 
     revalidatePath(`/artesano/${existing.slug}`);
   } else {
     let slug = slugify(shopName);
+    if (!slug) slug = crypto.randomUUID().slice(0, 8);
     const { data: clash } = await supabase.from("artisans").select("id").eq("slug", slug).maybeSingle();
     if (clash) slug = `${slug}-${crypto.randomUUID().slice(0, 4)}`;
     const { error } = await supabase.from("artisans").insert({ ...fields, owner_id: user.id, slug });

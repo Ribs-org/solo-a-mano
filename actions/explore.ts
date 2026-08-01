@@ -24,7 +24,8 @@ export async function fetchProducts(opts: {
   if (opts.category) query = query.eq("category", opts.category);
   if (opts.comuna) query = query.ilike("artisans.comuna", `%${opts.comuna}%`);
   if (opts.verifiedOnly) query = query.eq("artisans.verification_status", "verificado");
-  if (opts.q) query = query.or(`name.ilike.%${opts.q}%,description.ilike.%${opts.q}%`);
+  const q = opts.q ? opts.q.replace(/[,()]/g, " ").trim() : "";
+  if (q) query = query.or(`name.ilike.%${q}%,description.ilike.%${q}%`);
 
   const { data, error } = await query;
   if (error) return [];

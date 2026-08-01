@@ -72,4 +72,5 @@ export interface VerificationRequest {
   status: "pendiente" | "aprobada" | "rechazada";
   admin_comment: string;
   created_at: string;
+  reviewed_at: string | null;
 }

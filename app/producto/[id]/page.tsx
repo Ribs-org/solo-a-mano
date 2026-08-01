@@ -10,6 +10,13 @@ import type { Artisan, Product } from "@/lib/types";
 
 type ProductWithArtisan = Product & { artisans: Artisan };
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const supabase = await createServerSupabase();
+  const { data } = await supabase.from("products").select("name, description").eq("id", id).maybeSingle();
+  return data ? { title: data.name, description: data.description.slice(0, 160) } : {};
+}
+
 export default async function ProductoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const supabase = await createServerSupabase();

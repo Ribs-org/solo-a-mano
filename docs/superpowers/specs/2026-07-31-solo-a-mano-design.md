@@ -18,7 +18,7 @@ El diferenciador es el **sello "Sólo A Mano"**: una verificación manual de que
 | Contenido de /explorar | Solo productos del catálogo (grilla masonry). Sin "publicaciones" tipo red social. |
 | Destino de los ratings | Al artesano (estilo Airbnb), no por producto. |
 | Aprobación de verificación | Panel de admin en la web + aviso por correo al dueño. |
-| Stack | Next.js 15 (App Router, TypeScript) + Tailwind CSS + Supabase + Vercel. |
+| Stack | Next.js 16 (App Router, TypeScript) + Tailwind CSS + Supabase + Vercel. |
 | Correo transaccional | Resend (capa gratuita). |
 
 ## Arquitectura

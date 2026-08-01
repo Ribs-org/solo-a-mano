@@ -22,6 +22,12 @@ export async function saveProduct(formData: FormData): Promise<{ error?: string 
 
   let photos: string[] = [];
   try { photos = JSON.parse(String(formData.get("photo_urls") ?? "[]")); } catch { /* queda vacío */ }
+  const publicImagePrefix = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/`;
+  const sentSomething = Array.isArray(photos) && photos.length > 0;
+  photos = Array.isArray(photos)
+    ? photos.filter((p): p is string => typeof p === "string" && p.startsWith(publicImagePrefix))
+    : [];
+  if (sentSomething && photos.length === 0) return { error: "Las fotos no son válidas." };
   if (photos.length > 5) photos = photos.slice(0, 5);
 
   const priceRaw = String(formData.get("price_clp") ?? "").replace(/\D/g, "");

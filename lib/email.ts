@@ -1,5 +1,14 @@
 import { Resend } from "resend";
 
+function esc(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function notifyAdminNewRequest(shopName: string, message: string): Promise<void> {
   const key = process.env.RESEND_API_KEY;
   const admin = process.env.ADMIN_EMAIL;
@@ -10,8 +19,8 @@ export async function notifyAdminNewRequest(shopName: string, message: string): 
       from: "Sólo A Mano <onboarding@resend.dev>",
       to: admin,
       subject: `Nueva solicitud de sello: ${shopName}`,
-      html: `<p><strong>${shopName}</strong> postuló al sello Sólo A Mano.</p>
-             ${message ? `<p>Mensaje: "${message}"</p>` : ""}
+      html: `<p><strong>${esc(shopName)}</strong> postuló al sello Sólo A Mano.</p>
+             ${message ? `<p>Mensaje: "${esc(message)}"</p>` : ""}
              <p><a href="${site}/admin">Revisar en el panel de admin</a></p>`,
     });
   } catch {

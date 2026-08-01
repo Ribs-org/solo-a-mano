@@ -4,10 +4,12 @@ Plataforma de discovery para artesanos locales con sello de verificación.
 
 ## Stack
 
-- **Next.js 15** - Framework React con App Router
+- **Next.js 16** - Framework React con App Router
 - **Supabase** - Backend y base de datos PostgreSQL
 - **Tailwind CSS v4** - Estilos y diseño responsivo
 - **Vercel** - Hosting en producción
+
+> Nota: `middleware.ts` todavía usa la convención `middleware.ts`, marcada como deprecated-pero-funcional en Next 16 (pendiente migrar a `proxy.ts`).
 
 ## Cómo correr en local
 

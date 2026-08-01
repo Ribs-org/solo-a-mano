@@ -6,7 +6,7 @@
 
 **Architecture:** Next.js 15 (App Router, Server Components + Server Actions) con Supabase como backend (Postgres con RLS, Auth con Google/email, Storage para imágenes). Deploy en Vercel. Las mutaciones pasan por server actions con columnas whitelisted; las operaciones de admin usan el service-role client. Correo transaccional con Resend.
 
-**Tech Stack:** Next.js 15, React 19, TypeScript (strict), Tailwind CSS v4, @supabase/ssr + @supabase/supabase-js, browser-image-compression, Resend, Vitest + Testing Library.
+**Tech Stack:** Next.js 16, React 19, TypeScript (strict), Tailwind CSS v4, @supabase/ssr + @supabase/supabase-js, browser-image-compression, Resend, Vitest + Testing Library.
 
 ## Global Constraints
 

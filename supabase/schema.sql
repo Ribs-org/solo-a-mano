@@ -164,7 +164,8 @@ create policy "gestionar mis horarios" on public.market_schedules for all
   using (artisan_id in (select id from public.artisans where owner_id = auth.uid()))
   with check (artisan_id in (select id from public.artisans where owner_id = auth.uid()));
 
-create policy "reviews públicas" on public.reviews for select using (true);
+create policy "reviews públicas" on public.reviews for select
+  using (not hidden or auth.uid() = author_id);
 create policy "crear review" on public.reviews for insert
   with check (
     auth.uid() = author_id
