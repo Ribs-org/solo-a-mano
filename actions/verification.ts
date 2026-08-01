@@ -1,6 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { notifyAdminNewRequest } from "@/lib/email";
 
 export async function submitVerificationRequest(formData: FormData): Promise<{ error?: string }> {
   const supabase = await createServerSupabase();
@@ -26,6 +27,7 @@ export async function submitVerificationRequest(formData: FormData): Promise<{ e
   });
   if (error) return { error: "No pudimos enviar tu solicitud: " + error.message };
 
+  await notifyAdminNewRequest(artisan.shop_name, String(formData.get("message") ?? "").trim());
   revalidatePath("/panel/verificacion");
   return {};
 }
