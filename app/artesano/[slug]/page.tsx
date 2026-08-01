@@ -8,6 +8,7 @@ import ScheduleWeek from "@/components/ScheduleWeek";
 import StarRating from "@/components/StarRating";
 import MasonryGrid from "@/components/MasonryGrid";
 import ProductCard from "@/components/ProductCard";
+import ReviewSection from "@/components/ReviewSection";
 import type { Artisan, MarketSchedule, Product } from "@/lib/types";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -79,7 +80,7 @@ export default async function ArtesanoPage({ params }: { params: Promise<{ slug:
 
         <section id="resenas" className="mt-8 pb-8">
           <h2 className="mb-3 font-display text-2xl">Reseñas</h2>
-          <p className="text-cafe/60">Las reseñas llegan pronto.</p>
+          <ReviewSection artisanId={artisan.id} slug={artisan.slug} />
         </section>
       </div>
     </div>
