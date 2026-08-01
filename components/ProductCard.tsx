@@ -13,7 +13,7 @@ export default function ProductCard({ product, artisan }: { product: CardProduct
         {product.photo_urls[0]
           ? <Image src={product.photo_urls[0]} alt={product.name} width={480} height={480}
               className="w-full object-cover" />
-          : <div className="flex aspect-square w-full items-center justify-center bg-beige text-cafe/40">Sin foto</div>}
+          : <div className="flex aspect-square w-full items-center justify-center bg-beige text-cafe/60">Sin foto</div>}
       </Link>
       <div className="p-3">
         <Link href={`/producto/${product.id}`} className="font-medium hover:text-terracota">{product.name}</Link>

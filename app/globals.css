@@ -15,3 +15,37 @@ body {
   background-color: var(--color-crema);
   color: var(--color-cafe);
 }
+
+/* Consistent hover transitions on every interactive element that doesn't
+   already opt in via a Tailwind `transition` utility. */
+a,
+button,
+input,
+select,
+textarea,
+summary {
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease,
+    opacity 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+/* Palette-consistent keyboard focus ring, visible on every interactive element. */
+:focus-visible {
+  outline: 2px solid var(--color-terracota);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background-color: var(--color-terracota);
+  color: var(--color-crema);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

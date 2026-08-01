@@ -16,7 +16,7 @@ export default async function PanelPage() {
       <div className="rounded-2xl border border-beige bg-white/60 p-8 text-center">
         <h1 className="font-display text-2xl">¡Bienvenido a Sólo A Mano!</h1>
         <p className="mt-2">Aún no tienes un perfil de emprendimiento. Créalo para mostrar tus productos.</p>
-        <Link href="/panel/perfil" className="mt-4 inline-block rounded-full bg-terracota px-6 py-2 text-crema">
+        <Link href="/panel/perfil" className="mt-4 inline-block rounded-full bg-terracota px-6 py-2 text-crema hover:bg-cafe">
           Crear mi perfil de artesano
         </Link>
       </div>
@@ -30,7 +30,7 @@ export default async function PanelPage() {
         <SelloBadge status={artisan.verification_status} />
       </div>
       <p className="mt-1 text-sm text-cafe/70">
-        Tu página pública: <Link className="underline" href={`/artesano/${artisan.slug}`}>/artesano/{artisan.slug}</Link>
+        Tu página pública: <Link className="underline hover:text-terracota" href={`/artesano/${artisan.slug}`}>/artesano/{artisan.slug}</Link>
       </p>
     </div>
   );

@@ -25,7 +25,7 @@ export default async function ProductoPage({ params }: { params: Promise<{ id: s
           ? product.photo_urls.map((u) => (
               <Image key={u} src={u} alt={product.name} width={800} height={800} className="w-full rounded-2xl object-cover" />
             ))
-          : <div className="flex aspect-square items-center justify-center rounded-2xl bg-beige text-cafe/40">Sin foto</div>}
+          : <div className="flex aspect-square items-center justify-center rounded-2xl bg-beige text-cafe/60">Sin foto</div>}
       </div>
       <div>
         <p className="text-sm text-cafe/60">{categoryLabel(product.category)}</p>

@@ -9,21 +9,21 @@ export default async function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-beige bg-crema/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.png" alt="Sólo A Mano" width={44} height={44} className="rounded-full" />
           <span className="font-display text-xl font-semibold text-cafe">Sólo A Mano</span>
         </Link>
-        <nav className="flex items-center gap-5 text-sm">
-          <Link href="/explorar" className="hover:text-terracota">Explorar</Link>
-          <Link href="/verificacion" className="hover:text-terracota">El sello</Link>
+        <nav className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+          <Link href="/explorar" className="rounded px-1 py-2 hover:text-terracota">Explorar</Link>
+          <Link href="/verificacion" className="rounded px-1 py-2 hover:text-terracota">El sello</Link>
           {user ? (
             <>
               <Link href="/panel" className="rounded-full bg-terracota px-4 py-1.5 text-crema hover:bg-cafe">
                 Mi panel
               </Link>
               <form action={signOut}>
-                <button className="hover:text-terracota">Salir</button>
+                <button className="rounded px-1 py-2 hover:text-terracota">Salir</button>
               </form>
             </>
           ) : (

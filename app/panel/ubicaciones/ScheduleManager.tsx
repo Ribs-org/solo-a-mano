@@ -13,7 +13,7 @@ export default function ScheduleManager({ schedules, hasArtisan }: { schedules: 
   const [error, setError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  if (!hasArtisan) return <p>Primero <Link className="underline" href="/panel/perfil">crea tu perfil</Link>.</p>;
+  if (!hasArtisan) return <p>Primero <Link className="underline hover:text-terracota" href="/panel/perfil">crea tu perfil</Link>.</p>;
 
   function onSubmit(formData: FormData) {
     start(async () => {
@@ -33,12 +33,12 @@ export default function ScheduleManager({ schedules, hasArtisan }: { schedules: 
         <ScheduleWeek schedules={schedules} />
         {schedules.map((s) => (
           <form key={s.id} action={() => start(() => deleteSchedule(s.id))}>
-            <button className="text-xs text-terracota underline">Quitar {s.place_name}</button>
+            <button className="rounded px-1 py-1 text-xs text-terracota underline hover:text-cafe">Quitar {s.place_name}</button>
           </form>
         ))}
       </div>
       <form ref={formRef} action={onSubmit} className="flex flex-col gap-3 rounded-2xl border border-beige bg-white/60 p-4">
-        <h2 className="font-medium">Agregar ubicación</h2>
+        <h2 className="font-display text-lg">Agregar ubicación</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="text-sm">Día
             <select name="day_of_week" className={input}>
@@ -59,7 +59,7 @@ export default function ScheduleManager({ schedules, hasArtisan }: { schedules: 
           <input name="notes" placeholder="Solo la feria navideña de diciembre" className={input} />
         </label>
         {error && <p className="text-sm text-terracota">{error}</p>}
-        <button disabled={pending} className="w-fit rounded-full bg-terracota px-5 py-1.5 text-sm text-crema disabled:opacity-50">
+        <button disabled={pending} className="w-fit rounded-full bg-terracota px-5 py-1.5 text-sm text-crema hover:bg-cafe disabled:opacity-50 disabled:hover:bg-terracota">
           Agregar
         </button>
       </form>

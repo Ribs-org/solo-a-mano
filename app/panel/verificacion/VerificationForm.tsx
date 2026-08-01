@@ -72,7 +72,7 @@ export default function VerificationForm() {
       </label>
       {error && <p className="text-sm text-terracota">{error}</p>}
       <button disabled={pending || !paths.stall_photo_path || !paths.making_photo_path}
-        className="w-fit rounded-full bg-terracota px-6 py-2 text-crema disabled:opacity-50">
+        className="w-fit rounded-full bg-terracota px-6 py-2 text-crema hover:bg-cafe disabled:opacity-50 disabled:hover:bg-terracota">
         {pending ? "Enviando…" : "Enviar solicitud"}
       </button>
     </form>

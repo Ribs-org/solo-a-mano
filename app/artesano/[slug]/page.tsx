@@ -38,14 +38,14 @@ export default async function ArtesanoPage({ params }: { params: Promise<{ slug:
         )}
       </div>
       <div className="mx-auto max-w-5xl px-4">
-        <div className="-mt-12 flex flex-wrap items-end gap-4">
+        <div className="-mt-10 flex flex-wrap items-end gap-4 sm:-mt-12">
           {artisan.profile_photo_url
             ? <Image src={artisan.profile_photo_url} alt={artisan.shop_name} width={112} height={112}
-                className="h-28 w-28 rounded-full border-4 border-crema object-cover" />
-            : <div className="h-28 w-28 rounded-full border-4 border-crema bg-ambar" />}
+                className="h-24 w-24 rounded-full border-4 border-crema object-cover sm:h-28 sm:w-28" />
+            : <div className="h-24 w-24 rounded-full border-4 border-crema bg-ambar sm:h-28 sm:w-28" />}
           <div className="pb-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="font-display text-3xl">{artisan.shop_name}</h1>
+              <h1 className="font-display text-2xl sm:text-3xl">{artisan.shop_name}</h1>
               <SelloBadge status={artisan.verification_status} size="lg" />
             </div>
             <p className="text-sm text-cafe/70">

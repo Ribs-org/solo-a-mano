@@ -62,7 +62,7 @@ export default function AuthForm() {
         </button>
       </form>
       <button onClick={() => setMode(mode === "login" ? "registro" : "login")}
-        className="mt-4 w-full text-center text-sm underline">
+        className="mt-4 w-full text-center text-sm underline hover:text-terracota">
         {mode === "login" ? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Entra"}
       </button>
     </div>

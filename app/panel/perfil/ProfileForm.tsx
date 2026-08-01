@@ -62,7 +62,7 @@ export default function ProfileForm({ artisan }: { artisan: Artisan | null }) {
       </div>
       {error && <p className="text-sm text-terracota">{error}</p>}
       {saved && <p className="text-sm text-verde">Guardado ✓</p>}
-      <button disabled={pending} className="w-fit rounded-full bg-terracota px-6 py-2 text-crema disabled:opacity-50">
+      <button disabled={pending} className="w-fit rounded-full bg-terracota px-6 py-2 text-crema hover:bg-cafe disabled:opacity-50 disabled:hover:bg-terracota">
         {pending ? "Guardando…" : "Guardar"}
       </button>
     </form>

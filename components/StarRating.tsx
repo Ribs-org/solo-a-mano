@@ -13,7 +13,8 @@ export default function StarRating({ value, onChange }: { value: number; onChang
         );
         if (!onChange) return star;
         return (
-          <button key={n} type="button" onClick={() => onChange(n)} aria-label={`${n} estrellas`}>
+          <button key={n} type="button" onClick={() => onChange(n)} aria-label={`${n} estrellas`}
+            className="rounded hover:scale-110">
             {star}
           </button>
         );

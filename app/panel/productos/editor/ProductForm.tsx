@@ -44,7 +44,7 @@ export default function ProductForm({ product }: { product: Product | null }) {
       </div>
       <MultiImageUploader name="photo_urls" defaultUrls={product?.photo_urls} max={5} />
       {error && <p className="text-sm text-terracota">{error}</p>}
-      <button disabled={pending} className="w-fit rounded-full bg-terracota px-6 py-2 text-crema disabled:opacity-50">
+      <button disabled={pending} className="w-fit rounded-full bg-terracota px-6 py-2 text-crema hover:bg-cafe disabled:opacity-50 disabled:hover:bg-terracota">
         {pending ? "Guardando…" : "Guardar producto"}
       </button>
     </form>

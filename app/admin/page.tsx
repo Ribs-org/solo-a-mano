@@ -58,7 +58,7 @@ function ReviewRow({ review }: { review: ReviewWithNames }) {
         <strong>{review.profiles.display_name}</strong> → {review.artisans.shop_name}: ★{review.stars} "{review.comment}"
       </p>
       <form action={toggleReviewHidden.bind(null, review.id, !review.hidden)}>
-        <button className="text-terracota underline">{review.hidden ? "Mostrar" : "Ocultar"}</button>
+        <button className="rounded px-1 py-1 text-terracota underline hover:text-cafe">{review.hidden ? "Mostrar" : "Ocultar"}</button>
       </form>
     </div>
   );

@@ -39,7 +39,8 @@ export default function MultiImageUploader({
           <div key={u} className="relative">
             <Image src={u} alt={`Foto ${i + 1}`} width={96} height={96} className="h-24 w-24 rounded-lg object-cover" />
             <button type="button" onClick={() => setUrls(urls.filter((x) => x !== u))}
-              className="absolute -right-1 -top-1 rounded-full bg-terracota px-1.5 text-xs text-crema">✕</button>
+              aria-label={`Quitar foto ${i + 1}`}
+              className="absolute -right-1.5 -top-1.5 rounded-full bg-terracota px-2 py-1 text-xs leading-none text-crema hover:bg-cafe">✕</button>
           </div>
         ))}
       </div>

@@ -68,7 +68,7 @@ export default async function Home() {
           Crea tu perfil gratis, muestra tu catálogo y cuéntale a todos dónde encontrarte. Si todo lo tuyo es hecho a
           mano, postula al sello Sólo A Mano.
         </p>
-        <Link href="/cuenta" className="mt-4 inline-block rounded-full bg-ambar px-6 py-2 font-medium text-verde">
+        <Link href="/cuenta" className="mt-4 inline-block rounded-full bg-ambar px-6 py-2 font-medium text-verde hover:bg-crema">
           Súmate gratis
         </Link>
       </section>

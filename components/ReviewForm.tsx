@@ -32,7 +32,7 @@ export default function ReviewForm({ artisanId, slug, existing }: { artisanId: s
       {error && <p className="text-sm text-terracota">{error}</p>}
       {saved && <p className="text-sm text-verde">¡Gracias por tu reseña!</p>}
       <button disabled={pending || stars === 0}
-        className="mt-2 rounded-full bg-terracota px-5 py-1.5 text-sm text-crema disabled:opacity-50">
+        className="mt-2 rounded-full bg-terracota px-5 py-1.5 text-sm text-crema hover:bg-cafe disabled:opacity-50 disabled:hover:bg-terracota">
         {pending ? "Enviando…" : "Publicar"}
       </button>
     </form>
