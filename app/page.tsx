@@ -15,7 +15,7 @@ export default async function Home() {
     <div className="mx-auto max-w-6xl px-4">
       <section className="flex flex-col items-center gap-4 py-16 text-center">
         <Image src="/logo.png" alt="Sólo A Mano" width={140} height={140} className="rounded-full" />
-        <h1 className="font-display text-4xl sm:text-5xl">Hecho a mano, hecho con sentido</h1>
+        <h1 className="font-display text-4xl sm:text-5xl">Solo cosas hechas a mano</h1>
         <p className="max-w-xl text-cafe/80">
           Descubre a los artesanos de las ferias de Chile: sus productos, su historia y dónde encontrarlos esta semana.
         </p>
