@@ -6,7 +6,7 @@ import { CATEGORIES } from "@/lib/constants";
 import MultiImageUploader from "@/components/MultiImageUploader";
 import type { Product } from "@/lib/types";
 
-const input = "rounded-lg border border-beige bg-crema px-3 py-2 w-full";
+const input = "rounded-lg border border-sage/50 bg-paper px-3 py-2 w-full";
 
 export default function ProductForm({ product }: { product: Product | null }) {
   const router = useRouter();
@@ -43,8 +43,8 @@ export default function ProductForm({ product }: { product: Product | null }) {
         </label>
       </div>
       <MultiImageUploader name="photo_urls" defaultUrls={product?.photo_urls} max={5} />
-      {error && <p className="text-sm text-terracota">{error}</p>}
-      <button disabled={pending} className="w-fit rounded-full bg-terracota px-6 py-2 text-crema hover:bg-cafe disabled:opacity-50 disabled:hover:bg-terracota">
+      {error && <p className="text-sm text-copihue">{error}</p>}
+      <button disabled={pending} className="w-fit rounded-full bg-lime px-6 py-2 text-ink hover:bg-fern hover:text-lime disabled:opacity-50 disabled:hover:bg-lime disabled:hover:text-ink">
         {pending ? "Guardando…" : "Guardar producto"}
       </button>
     </form>

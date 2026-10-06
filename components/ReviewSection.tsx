@@ -20,9 +20,9 @@ export default async function ReviewSection({ artisanId, slug }: { artisanId: st
 
   return (
     <div className="flex flex-col gap-4">
-      {!reviews?.length && <p className="text-cafe/60">Aún no hay reseñas. ¡Sé la primera persona en dejar una!</p>}
+      {!reviews?.length && <p className="text-ink/60">Aún no hay reseñas. ¡Sé la primera persona en dejar una!</p>}
       {reviews?.map((r) => (
-        <div key={r.id} className="rounded-2xl border border-beige bg-white/60 p-4">
+        <div key={r.id} className="rounded-2xl border border-sage/50 bg-white/60 p-4">
           <div className="flex items-center justify-between">
             <p className="font-medium">{r.profiles?.display_name ?? "Alguien"}</p>
             <StarRating value={r.stars} />
@@ -30,15 +30,15 @@ export default async function ReviewSection({ artisanId, slug }: { artisanId: st
           {r.comment && <p className="mt-1 text-sm">{r.comment}</p>}
           {user?.id === r.author_id && (
             <form action={deleteReview.bind(null, artisanId, slug)}>
-              <button className="mt-1 rounded px-1 py-1 text-xs text-terracota underline hover:text-cafe">Eliminar mi reseña</button>
+              <button className="mt-1 rounded px-1 py-1 text-xs text-copihue underline hover:text-ink">Eliminar mi reseña</button>
             </form>
           )}
         </div>
       ))}
       {user && !isOwner && <ReviewForm artisanId={artisanId} slug={slug} existing={mine} />}
       {!user && (
-        <p className="text-sm text-cafe/70">
-          <Link href="/cuenta" className="underline hover:text-terracota">Inicia sesión</Link> para dejar tu reseña.
+        <p className="text-sm text-ink/70">
+          <Link href="/cuenta" className="underline hover:bg-lime">Inicia sesión</Link> para dejar tu reseña.
         </p>
       )}
     </div>

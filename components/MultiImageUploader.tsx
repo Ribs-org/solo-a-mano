@@ -40,16 +40,16 @@ export default function MultiImageUploader({
             <Image src={u} alt={`Foto ${i + 1}`} width={96} height={96} className="h-24 w-24 rounded-lg object-cover" />
             <button type="button" onClick={() => setUrls(urls.filter((x) => x !== u))}
               aria-label={`Quitar foto ${i + 1}`}
-              className="absolute -right-1.5 -top-1.5 rounded-full bg-terracota px-2 py-1 text-xs leading-none text-crema hover:bg-cafe">✕</button>
+              className="absolute -right-1.5 -top-1.5 rounded-full bg-copihue px-2 py-1 text-xs leading-none text-paper hover:bg-fern">✕</button>
           </div>
         ))}
       </div>
       {urls.length < max && (
         <input type="file" accept="image/*" multiple onChange={onChange} disabled={busy}
-          className="text-sm file:mr-3 file:rounded-full file:border-0 file:bg-beige file:px-3 file:py-1.5" />
+          className="text-sm file:mr-3 file:rounded-full file:border-0 file:bg-lilac-soft file:px-3 file:py-1.5" />
       )}
-      {busy && <p className="text-xs text-cafe/60">Subiendo…</p>}
-      {error && <p className="text-xs text-terracota">{error}</p>}
+      {busy && <p className="text-xs text-ink/60">Subiendo…</p>}
+      {error && <p className="text-xs text-copihue">{error}</p>}
     </div>
   );
 }

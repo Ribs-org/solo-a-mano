@@ -31,7 +31,7 @@ export default async function AdminPage() {
     <div className="flex flex-col gap-10">
       <section>
         <h1 className="mb-4 font-display text-3xl">Solicitudes de verificación</h1>
-        {!requestsWithUrls.length && <p className="text-cafe/60">No hay solicitudes pendientes. 🎉</p>}
+        {!requestsWithUrls.length && <p className="text-ink/60">No hay solicitudes pendientes. 🎉</p>}
         <div className="flex flex-col gap-4">
           {requestsWithUrls.map(({ request, stallUrl, makingUrl, videoUrl }) => (
             <RequestCard key={request.id} request={request} stallUrl={stallUrl} makingUrl={makingUrl} videoUrl={videoUrl} />
@@ -53,12 +53,12 @@ export default async function AdminPage() {
 
 function ReviewRow({ review }: { review: ReviewWithNames }) {
   return (
-    <div className="flex items-center justify-between rounded-lg border border-beige bg-white/60 px-3 py-2 text-sm">
+    <div className="flex items-center justify-between rounded-lg border border-sage/50 bg-white/60 px-3 py-2 text-sm">
       <p className={review.hidden ? "line-through opacity-50" : ""}>
         <strong>{review.profiles.display_name}</strong> → {review.artisans.shop_name}: ★{review.stars} “{review.comment}”
       </p>
       <form action={toggleReviewHidden.bind(null, review.id, !review.hidden)}>
-        <button className="rounded px-1 py-1 text-terracota underline hover:text-cafe">{review.hidden ? "Mostrar" : "Ocultar"}</button>
+        <button className="rounded px-1 py-1 text-copihue underline hover:text-ink">{review.hidden ? "Mostrar" : "Ocultar"}</button>
       </form>
     </div>
   );
