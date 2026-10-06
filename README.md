@@ -15,8 +15,8 @@ Plataforma de discovery para artesanos locales con sello de verificación.
 
 | Rama | Sitio | Supabase | Quién lo ve |
 |------|-------|----------|-------------|
-| `main` | producción (`tudominio.cl`) | proyecto **PROD** (datos reales) | clientes |
-| `dev` | `dev.tudominio.cl` | proyecto **DEV** (datos de prueba) | el equipo (protegido con login de Vercel) |
+| `main` | producción (`www.solo-a-mano.cl`) | proyecto **PROD** (datos reales) | clientes |
+| `dev` | `dev.solo-a-mano.cl` | proyecto **DEV** (datos de prueba) | el equipo (con contraseña) |
 | `feature/*` | preview de Vercel | proyecto **DEV** | el equipo |
 
 ```
@@ -26,7 +26,7 @@ feature/xxx ──PR──► dev ──PR──► main
 1. `git checkout dev && git pull && git checkout -b feature/mi-cambio`
 2. Si cambias la base de datos: `npx supabase migration new nombre_del_cambio` y escribe el SQL en el archivo creado en `supabase/migrations/`.
 3. PR hacia **dev**. El CI (lint, tests y build) tiene que pasar.
-4. Al mergear a `dev`, las migraciones se aplican solas a Supabase DEV y el cambio queda en `dev.tudominio.cl`.
+4. Al mergear a `dev`, las migraciones se aplican solas a Supabase DEV y el cambio queda en `dev.solo-a-mano.cl`.
 5. Cuando todo esté probado: PR de **dev → main** (requiere aprobación). Al mergear se aplican las migraciones a PROD y se despliega.
 6. Hotfix urgente: rama `hotfix/xxx` desde `main`, PR a `main` y después mergea `main` en `dev`.
 
@@ -114,11 +114,12 @@ Se configuran por ambiente: **Production** apunta a Supabase PROD y **Preview** 
 | `NEXT_PUBLIC_SUPABASE_URL` | URL de PROD | URL de DEV |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon key de PROD | anon key de DEV |
 | `SUPABASE_SERVICE_ROLE_KEY` | service role de PROD | service role de DEV |
-| `NEXT_PUBLIC_SITE_URL` | `https://tudominio.cl` | `https://dev.tudominio.cl` |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.solo-a-mano.cl` | `https://dev.solo-a-mano.cl` |
 | `ADMIN_EMAIL` | correo del admin | correo de pruebas |
 | `RESEND_API_KEY` | API key (opcional) | vacío u otra key |
+| `DEV_PASSWORD` | — | contraseña del equipo para entrar a dev y a los previews |
 
-Fuera de producción, `robots.txt` bloquea todo para que dev no aparezca en Google.
+Fuera de producción, `robots.txt` bloquea todo para que dev no aparezca en Google, y `middleware.ts` pide la contraseña `DEV_PASSWORD` (cualquier usuario). Si la variable falta, dev responde 503 en vez de quedar público. En local no se pide.
 
 ## Build y testing
 

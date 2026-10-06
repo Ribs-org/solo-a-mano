@@ -1,7 +1,14 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { devGate } from "@/lib/dev-gate";
 
 export async function middleware(request: NextRequest) {
+  const blocked = devGate(request.headers.get("authorization"), {
+    VERCEL_ENV: process.env.VERCEL_ENV,
+    DEV_PASSWORD: process.env.DEV_PASSWORD,
+  });
+  if (blocked) return blocked;
+
   let response = NextResponse.next({ request });
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
