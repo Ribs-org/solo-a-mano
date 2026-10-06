@@ -9,18 +9,18 @@ export default function ContactButtons({ artisan, message }: { artisan: ContactA
     <div className="flex flex-wrap gap-2">
       {artisan.whatsapp_phone && (
         <a href={buildWhatsAppLink(artisan.whatsapp_phone, message)} target="_blank" rel="noopener noreferrer"
-          className={`${btn} bg-verde text-crema hover:opacity-90`}>WhatsApp</a>
+          className={`${btn} bg-fern text-bone hover:opacity-90`}>WhatsApp</a>
       )}
       {artisan.instagram_url && (
         <a href={artisan.instagram_url} target="_blank" rel="noopener noreferrer"
-          className={`${btn} bg-terracota text-crema hover:bg-cafe`}>Instagram</a>
+          className={`${btn} bg-lime text-ink hover:bg-fern hover:text-lime`}>Instagram</a>
       )}
       {artisan.facebook_url && (
         <a href={artisan.facebook_url} target="_blank" rel="noopener noreferrer"
-          className={`${btn} bg-terracota text-crema hover:bg-cafe`}>Facebook</a>
+          className={`${btn} bg-lime text-ink hover:bg-fern hover:text-lime`}>Facebook</a>
       )}
       {artisan.contact_email && (
-        <a href={`mailto:${artisan.contact_email}`} className={`${btn} border border-cafe hover:bg-beige`}>Correo</a>
+        <a href={`mailto:${artisan.contact_email}`} className={`${btn} border border-ink hover:bg-lilac-soft`}>Correo</a>
       )}
     </div>
   );

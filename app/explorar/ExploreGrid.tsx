@@ -35,7 +35,7 @@ export default function ExploreGrid({ initial, filters }: { initial: ExploreItem
     return () => observer.disconnect();
   }, [page, done, loading, filters]);
 
-  if (!items.length) return <p className="py-16 text-center text-cafe/60">No encontramos productos con esos filtros.</p>;
+  if (!items.length) return <p className="py-16 text-center text-ink/60">No encontramos productos con esos filtros.</p>;
 
   return (
     <>
@@ -43,7 +43,7 @@ export default function ExploreGrid({ initial, filters }: { initial: ExploreItem
         {items.map((p) => <ProductCard key={p.id} product={p} artisan={p.artisans} />)}
       </MasonryGrid>
       <div ref={sentinel} className="h-8" />
-      {loading && <p className="pb-8 text-center text-sm text-cafe/60">Cargando más…</p>}
+      {loading && <p className="pb-8 text-center text-sm text-ink/60">Cargando más…</p>}
     </>
   );
 }

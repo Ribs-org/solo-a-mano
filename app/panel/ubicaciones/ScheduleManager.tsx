@@ -6,14 +6,14 @@ import { DAYS } from "@/lib/constants";
 import ScheduleWeek from "@/components/ScheduleWeek";
 import type { MarketSchedule } from "@/lib/types";
 
-const input = "rounded-lg border border-beige bg-crema px-3 py-2 w-full";
+const input = "rounded-lg border border-sage/50 bg-paper px-3 py-2 w-full";
 
 export default function ScheduleManager({ schedules, hasArtisan }: { schedules: MarketSchedule[]; hasArtisan: boolean }) {
   const [pending, start] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  if (!hasArtisan) return <p>Primero <Link className="underline hover:text-terracota" href="/panel/perfil">crea tu perfil</Link>.</p>;
+  if (!hasArtisan) return <p>Primero <Link className="underline hover:bg-lime" href="/panel/perfil">crea tu perfil</Link>.</p>;
 
   function onSubmit(formData: FormData) {
     start(async () => {
@@ -27,17 +27,17 @@ export default function ScheduleManager({ schedules, hasArtisan }: { schedules: 
     <div className="flex max-w-2xl flex-col gap-6">
       <div>
         <h1 className="font-display text-2xl">Mi semana de ferias</h1>
-        <p className="text-sm text-cafe/70">Cuéntale a tus clientes dónde encontrarte cada semana.</p>
+        <p className="text-sm text-ink/70">Cuéntale a tus clientes dónde encontrarte cada semana.</p>
       </div>
       <div className="flex flex-col gap-2">
         <ScheduleWeek schedules={schedules} />
         {schedules.map((s) => (
           <form key={s.id} action={() => start(() => deleteSchedule(s.id))}>
-            <button className="rounded px-1 py-1 text-xs text-terracota underline hover:text-cafe">Quitar {s.place_name}</button>
+            <button className="rounded px-1 py-1 text-xs text-copihue underline hover:text-ink">Quitar {s.place_name}</button>
           </form>
         ))}
       </div>
-      <form ref={formRef} action={onSubmit} className="flex flex-col gap-3 rounded-2xl border border-beige bg-white/60 p-4">
+      <form ref={formRef} action={onSubmit} className="flex flex-col gap-3 rounded-2xl border border-sage/50 bg-white/60 p-4">
         <h2 className="font-display text-lg">Agregar ubicación</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="text-sm">Día
@@ -58,8 +58,8 @@ export default function ScheduleManager({ schedules, hasArtisan }: { schedules: 
         <label className="text-sm">Notas
           <input name="notes" placeholder="Solo la feria navideña de diciembre" className={input} />
         </label>
-        {error && <p className="text-sm text-terracota">{error}</p>}
-        <button disabled={pending} className="w-fit rounded-full bg-terracota px-5 py-1.5 text-sm text-crema hover:bg-cafe disabled:opacity-50 disabled:hover:bg-terracota">
+        {error && <p className="text-sm text-copihue">{error}</p>}
+        <button disabled={pending} className="w-fit rounded-full bg-lime px-5 py-1.5 text-sm text-ink hover:bg-fern hover:text-lime disabled:opacity-50 disabled:hover:bg-lime disabled:hover:text-ink">
           Agregar
         </button>
       </form>

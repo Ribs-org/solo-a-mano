@@ -1,19 +1,89 @@
 @import "tailwindcss";
 
 @theme {
-  --color-terracota: #c05d3e;
-  --color-beige: #d9c7b8;
-  --color-crema: #f5efe6;
-  --color-cafe: #6e4f3a;
-  --color-ambar: #e0a96d;
-  --color-verde: #2e3b32;
+  /* Base */
+  --color-bone: #f1f0e8; /* fondo general, fichas de producto */
+  --color-paper: #f7f6ee; /* etiquetas, notas, tarjetas sobre fondos de color */
+  --color-ink: #17301f; /* texto principal (verde muy oscuro, nunca negro) */
+  --color-fern: #23402f; /* menú, footer, detalles oscuros */
+
+  /* Lila */
+  --color-lilac: #a98be8; /* bloques destacados, sombras duras, burbujas */
+  --color-lilac-soft: #e4daf7; /* superficies grandes, fondos de bloques */
+
+  /* Verdes */
+  --color-sage: #8fae8b; /* íconos, separadores, detalles secundarios */
+  --color-sage-soft: #d9e6cf; /* fondo de la sección de accesorios */
+
+  /* Acentos */
+  --color-lime: #c8f03c; /* botones, etiquetas, hover, marcas de "en proceso" */
+  --color-copihue: #e0457b; /* acento puntual: drops, agotado, detalles */
+  --color-electric: #2e3cf2; /* sección eléctrica (confección) */
+  --color-electric-deep: #2230d4; /* variante más oscura del azul para superficies */
+
+  --animate-sway: sway 3.6s ease-in-out infinite;
+
+  /* Vaivén suave de las fotos de producto, como si bailaran. */
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(0deg) translateY(0);
+    }
+    25% {
+      transform: rotate(-2.5deg) translateY(-3px);
+    }
+    75% {
+      transform: rotate(2.5deg) translateY(-3px);
+    }
+  }
+}
+
+/* `inline`: las variables de next/font viven en <body>, no en :root, así que las
+   utilidades deben usar var(--font-…) directamente donde se aplican. */
+@theme inline {
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-inter);
+  --font-script: var(--font-pinyon); /* caligrafía para palabras gigantes y leyendas a mano */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Parallax con animaciones ligadas al scroll (sin JS). `--speed` es cuánto se desplaza
+   el elemento mientras cruza la pantalla: positivo = más lento que el scroll (se siente
+   al fondo), negativo = más rápido (se siente cerca). Usa la propiedad `translate`, así
+   no pisa el `transform` del baile. Donde no hay soporte (p. ej. Firefox) queda quieto. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax {
+      --parallax-scale: 1;
+      animation: parallax linear both;
+      animation-timeline: view();
+    }
+
+    @media (max-width: 640px) {
+      .parallax {
+        --parallax-scale: 0.5; /* en celular, más suave */
+      }
+    }
+
+    @keyframes parallax {
+      from {
+        translate: 0 calc(var(--speed, 40px) * var(--parallax-scale) * -1);
+      }
+      to {
+        translate: 0 calc(var(--speed, 40px) * var(--parallax-scale));
+      }
+    }
+  }
 }
 
 body {
-  background-color: var(--color-crema);
-  color: var(--color-cafe);
+  background-color: var(--color-bone);
+  /* Grano de papel muy sutil (ruido SVG) para que el fondo no se vea plano. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.19 0 0 0 0 0.12 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--color-ink);
 }
 
 /* Consistent hover transitions on every interactive element that doesn't
@@ -30,17 +100,21 @@ summary {
 
 /* Palette-consistent keyboard focus ring, visible on every interactive element. */
 :focus-visible {
-  outline: 2px solid var(--color-terracota);
+  outline: 2px solid var(--color-electric);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 ::selection {
-  background-color: var(--color-terracota);
-  color: var(--color-crema);
+  background-color: var(--color-lilac);
+  color: var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
