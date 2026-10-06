@@ -11,6 +11,30 @@ Plataforma de discovery para artesanos locales con sello de verificación.
 
 > Nota: `middleware.ts` todavía usa la convención `middleware.ts`, marcada como deprecated-pero-funcional en Next 16 (pendiente migrar a `proxy.ts`).
 
+## Ambientes y flujo de trabajo
+
+| Rama | Sitio | Supabase | Quién lo ve |
+|------|-------|----------|-------------|
+| `main` | producción (`www.solo-a-mano.cl`) | proyecto **PROD** (datos reales) | clientes |
+| `dev` | `dev.solo-a-mano.cl` | proyecto **DEV** (datos de prueba) | el equipo (con contraseña) |
+| `feature/*` | preview de Vercel | proyecto **DEV** | el equipo |
+
+```
+feature/xxx ──PR──► dev ──PR──► main
+```
+
+1. `git checkout dev && git pull && git checkout -b feature/mi-cambio`
+2. Si cambias la base de datos: `npx supabase migration new nombre_del_cambio` y escribe el SQL en el archivo creado en `supabase/migrations/`.
+3. PR hacia **dev**. El CI (lint, tests y build) tiene que pasar.
+4. Al mergear a `dev`, las migraciones se aplican solas a Supabase DEV y el cambio queda en `dev.solo-a-mano.cl`.
+5. Cuando todo esté probado: PR de **dev → main** (requiere aprobación). Al mergear se aplican las migraciones a PROD y se despliega.
+6. Hotfix urgente: rama `hotfix/xxx` desde `main`, PR a `main` y después mergea `main` en `dev`.
+
+Reglas:
+- Nadie hace push directo a `dev` ni a `main`. A `main` solo se llega desde `dev` o `hotfix/*`.
+- Nunca se edita la base de datos de producción desde el SQL Editor. Todo cambio va como migración.
+- Las migraciones deben ser compatibles con la versión anterior de la app (primero agregar, en otro PR borrar).
+
 ## Cómo correr en local
 
 ### 1. Instalar dependencias
@@ -21,15 +45,27 @@ npm i
 
 ### 2. Configurar variables de entorno
 
-Copia `.env.example` a `.env.local` y completa los valores:
-
 ```bash
 cp .env.example .env.local
 ```
 
-Luego edita `.env.local` con tus credenciales de Supabase y otros servicios.
+Completa `.env.local` con las credenciales del proyecto Supabase **DEV** (Settings → API). En local nunca se usan las credenciales de producción.
 
-### 3. Ejecutar el servidor de desarrollo
+### 3. Cargar datos de prueba (opcional)
+
+```bash
+npm run seed:dev
+```
+
+Crea un admin, 7 artesanos (verificados, pendiente, rechazado y sin verificar) con productos, fotos y horarios, 10 compradores y sus reseñas. Todas las cuentas usan la contraseña `demo1234`:
+
+- `admin@example.com`
+- `artesano1@example.com` … `artesano7@example.com`
+- `comprador1@example.com` … `comprador10@example.com`
+
+Es re-ejecutable: borra lo que creó la vez anterior. Solo corre si la URL de Supabase coincide con `SUPABASE_DEV_PROJECT_REF`, así que no puede tocar producción.
+
+### 4. Ejecutar el servidor de desarrollo
 
 ```bash
 npm run dev
@@ -37,29 +73,23 @@ npm run dev
 
 La aplicación estará disponible en `http://localhost:3000`.
 
-## Configurar la base de datos en Supabase
+## Base de datos (Supabase)
 
-### 1. Crear proyecto en Supabase
+El esquema vive en `supabase/migrations/` y se aplica con la [Supabase CLI](https://supabase.com/docs/guides/cli) (`npx supabase`). GitHub Actions lo aplica solo al mergear a `dev` o `main` (`.github/workflows/migraciones.yml`).
 
-Dirígete a [Supabase](https://supabase.com) y crea un nuevo proyecto.
+Para aplicarlo a mano a un proyecto:
 
-### 2. Aplicar el esquema
-
-En el dashboard de Supabase, ve a **SQL Editor** y ejecuta el contenido del archivo `supabase/schema.sql`:
-
-```sql
--- Copia todo el contenido de supabase/schema.sql y pégalo aquí
+```bash
+npx supabase login
+npx supabase link --project-ref <REF>
+npx supabase db push
 ```
 
-### 3. Marcar cuenta como admin
-
-Para marcar tu cuenta como administrador, ejecuta en el SQL Editor:
+### Marcar cuenta como admin
 
 ```sql
 update public.profiles set role = 'admin' where id = (select id from auth.users where email = 'parejavice@gmail.com');
 ```
-
-Reemplaza `parejavice@gmail.com` con tu correo.
 
 ## Configurar admin en Resend (opcional)
 
@@ -75,18 +105,21 @@ Para habilitar notificaciones por correo de nuevas solicitudes de verificación:
 
 Sin estas variables, las notificaciones no se enviarán pero la aplicación seguirá funcionando.
 
-## Variables de entorno para Vercel
+## Variables de entorno en Vercel
 
-Cuando despliegues en Vercel, configura las siguientes variables de entorno:
+Se configuran por ambiente: **Production** apunta a Supabase PROD y **Preview** (rama `dev` y previews de PRs) a Supabase DEV.
 
-| Variable | Descripción | Ejemplo |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_SUPABASE_URL` | URL del proyecto Supabase | `https://xxxxx.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clave anónima de Supabase | `eyJhbGc...` |
-| `SUPABASE_SERVICE_ROLE_KEY` | Clave de rol de servicio (lado servidor) | `eyJhbGc...` |
-| `ADMIN_EMAIL` | Correo del administrador para notificaciones | `admin@example.com` |
-| `RESEND_API_KEY` | API Key de Resend (opcional) | `re_xxxxx` |
-| `NEXT_PUBLIC_SITE_URL` | URL de producción de tu sitio | `https://tu-dominio.vercel.app` |
+| Variable | Production | Preview |
+|----------|------------|---------|
+| `NEXT_PUBLIC_SUPABASE_URL` | URL de PROD | URL de DEV |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon key de PROD | anon key de DEV |
+| `SUPABASE_SERVICE_ROLE_KEY` | service role de PROD | service role de DEV |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.solo-a-mano.cl` | `https://dev.solo-a-mano.cl` |
+| `ADMIN_EMAIL` | correo del admin | correo de pruebas |
+| `RESEND_API_KEY` | API key (opcional) | vacío u otra key |
+| `DEV_PASSWORD` | — | contraseña del equipo para entrar a dev y a los previews |
+
+Fuera de producción, `robots.txt` bloquea todo para que dev no aparezca en Google, y `middleware.ts` pide la contraseña `DEV_PASSWORD` (cualquier usuario). Si la variable falta, dev responde 503 en vez de quedar público. En local no se pide.
 
 ## Build y testing
 
@@ -105,7 +138,9 @@ npm test
 - `/components` - Componentes React reutilizables
 - `/lib` - Utilidades y configuraciones
 - `/public` - Archivos estáticos
-- `/supabase` - Esquema de base de datos y migraciones
+- `/supabase` - Migraciones de base de datos y config de la CLI
+- `/scripts` - Seed de datos de prueba para dev
+- `/.github/workflows` - CI y migraciones automáticas
 
 ## Licencia
 

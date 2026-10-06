@@ -55,7 +55,7 @@ function ReviewRow({ review }: { review: ReviewWithNames }) {
   return (
     <div className="flex items-center justify-between rounded-lg border border-sage/50 bg-white/60 px-3 py-2 text-sm">
       <p className={review.hidden ? "line-through opacity-50" : ""}>
-        <strong>{review.profiles.display_name}</strong> → {review.artisans.shop_name}: ★{review.stars} "{review.comment}"
+        <strong>{review.profiles.display_name}</strong> → {review.artisans.shop_name}: ★{review.stars} “{review.comment}”
       </p>
       <form action={toggleReviewHidden.bind(null, review.id, !review.hidden)}>
         <button className="rounded px-1 py-1 text-copihue underline hover:text-ink">{review.hidden ? "Mostrar" : "Ocultar"}</button>

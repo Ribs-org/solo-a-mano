@@ -24,7 +24,7 @@ export default function RequestCard({ request, stallUrl, makingUrl, videoUrl }: 
         </p>
         <p className="text-xs text-ink/60">{new Date(request.created_at).toLocaleDateString("es-CL")}</p>
       </div>
-      {request.message && <p className="mt-2 text-sm">"{request.message}"</p>}
+      {request.message && <p className="mt-2 text-sm">“{request.message}”</p>}
       <div className="mt-3 flex flex-wrap gap-3">
         {stallUrl && <a href={stallUrl} target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
           {/* eslint-disable-next-line @next/next/no-img-element */}
