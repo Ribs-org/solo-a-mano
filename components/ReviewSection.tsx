@@ -22,7 +22,7 @@ export default async function ReviewSection({ artisanId, slug }: { artisanId: st
     <div className="flex flex-col gap-4">
       {!reviews?.length && <p className="text-ink/60">Aún no hay reseñas. ¡Sé la primera persona en dejar una!</p>}
       {reviews?.map((r) => (
-        <div key={r.id} className="rounded-2xl border border-sage/50 bg-white/60 p-4">
+        <div key={r.id} className="border border-ink/15 bg-white/60 p-4">
           <div className="flex items-center justify-between">
             <p className="font-medium">{r.profiles?.display_name ?? "Alguien"}</p>
             <StarRating value={r.stars} />

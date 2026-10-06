@@ -21,19 +21,19 @@ export default async function ExplorarPage({ searchParams }: { searchParams: Pro
       <h1 className="mb-4 font-display text-3xl">Explorar</h1>
       <form className="mb-6 flex flex-wrap items-center gap-2">
         <input name="q" defaultValue={params.q} placeholder="Buscar…"
-          className="w-full rounded-full border border-sage/50 bg-white/70 px-4 py-1.5 text-sm sm:w-56" />
+          className="w-full border border-ink/15 bg-white/70 px-4 py-1.5 text-sm sm:w-56" />
         <select name="categoria" defaultValue={params.categoria ?? ""}
-          className="w-full rounded-full border border-sage/50 bg-white/70 px-3 py-1.5 text-sm sm:w-auto">
+          className="w-full border border-ink/15 bg-white/70 px-3 py-1.5 text-sm sm:w-auto">
           <option value="">Todas las categorías</option>
           {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
         </select>
         <input name="comuna" defaultValue={params.comuna} placeholder="Comuna"
-          className="w-full rounded-full border border-sage/50 bg-white/70 px-4 py-1.5 text-sm sm:w-40" />
+          className="w-full border border-ink/15 bg-white/70 px-4 py-1.5 text-sm sm:w-40" />
         <label className="flex items-center gap-1.5 text-sm">
           <input type="checkbox" name="verificados" value="1" defaultChecked={params.verificados === "1"} />
           Solo con sello
         </label>
-        <button className="rounded-full bg-lime px-4 py-1.5 text-sm text-ink hover:bg-fern hover:text-lime">Filtrar</button>
+        <button className="bg-lime uppercase tracking-wide px-4 py-1.5 text-sm text-ink hover:bg-fern hover:text-lime">Filtrar</button>
       </form>
       <ExploreGrid key={JSON.stringify(filters)} initial={initial} filters={filters} />
     </div>

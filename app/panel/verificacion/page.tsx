@@ -31,7 +31,7 @@ export default async function PanelVerificacionPage() {
   return (
     <div className="flex max-w-xl flex-col gap-4">
       {artisan.verification_status === "rechazado" && lastRequest && (
-        <div className="rounded-2xl border border-lilac bg-lilac-soft p-4 text-sm">
+        <div className="border border-lilac bg-lilac-soft p-4 text-sm">
           <p className="font-medium">Tu solicitud anterior fue rechazada.</p>
           {lastRequest.admin_comment && <p className="mt-1">Motivo: {lastRequest.admin_comment}</p>}
           <p className="mt-1">Puedes corregir y volver a postular aquí mismo.</p>

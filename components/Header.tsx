@@ -8,7 +8,7 @@ export default async function Header() {
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sage/50 bg-bone/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-ink/15 bg-bone/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.png" alt="Sólo A Mano" width={44} height={44} className="rounded-full" />
@@ -19,7 +19,7 @@ export default async function Header() {
           <Link href="/verificacion" className="rounded px-1 py-2 hover:bg-lime">El sello</Link>
           {user ? (
             <>
-              <Link href="/panel" className="rounded-full bg-lime px-4 py-1.5 text-ink hover:bg-fern hover:text-lime">
+              <Link href="/panel" className="bg-lime uppercase tracking-wide px-4 py-1.5 text-ink hover:bg-fern hover:text-lime">
                 Mi panel
               </Link>
               <form action={signOut}>
@@ -27,7 +27,7 @@ export default async function Header() {
               </form>
             </>
           ) : (
-            <Link href="/cuenta" className="rounded-full bg-lime px-4 py-1.5 text-ink hover:bg-fern hover:text-lime">
+            <Link href="/cuenta" className="bg-lime uppercase tracking-wide px-4 py-1.5 text-ink hover:bg-fern hover:text-lime">
               Entrar
             </Link>
           )}

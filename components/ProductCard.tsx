@@ -8,7 +8,7 @@ type CardArtisan = { slug: string; shop_name: string; verification_status: Verif
 
 export default function ProductCard({ product, artisan }: { product: CardProduct; artisan: CardArtisan }) {
   return (
-    <div className="break-inside-avoid overflow-hidden rounded-2xl border border-sage/50 bg-white/70 transition hover:shadow-md">
+    <div className="break-inside-avoid overflow-hidden border border-ink/15 bg-white/70 transition hover:shadow-md">
       <Link href={`/producto/${product.id}`}>
         {product.photo_urls[0]
           ? <Image src={product.photo_urls[0]} alt={product.name} width={480} height={480}
@@ -22,7 +22,7 @@ export default function ProductCard({ product, artisan }: { product: CardProduct
           className="mt-1 flex items-center gap-1 text-xs text-ink/60 hover:bg-lime">
           <span>{artisan.shop_name}</span>
           {artisan.verification_status === "verificado" && (
-            <span className="rounded-full bg-lime px-1 text-ink" title="Sello Sólo A Mano">✓</span>
+            <span className="bg-lime uppercase tracking-wide px-1 text-ink" title="Sello Sólo A Mano">✓</span>
           )}
         </Link>
       </div>

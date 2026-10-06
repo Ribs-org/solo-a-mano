@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
+  /* Sistema "Revolución editorial" (ver docs/sistema-diseno.md). Proporción 60/30/10:
+     papel de fondo, superficies de color, y acción en lima. */
+
   /* Base */
-  --color-bone: #f1f0e8; /* fondo general, fichas de producto */
-  --color-paper: #f7f6ee; /* etiquetas, notas, tarjetas sobre fondos de color */
-  --color-ink: #17301f; /* texto principal (verde muy oscuro, nunca negro) */
-  --color-fern: #23402f; /* menú, footer, detalles oscuros */
+  --color-bone: #f4f2ec; /* fondo de papel (60%) */
+  --color-paper: #fbfaf6; /* tarjetas, campos de formulario, polaroids */
+  --color-ink: #111111; /* texto, líneas finas y bloques oscuros (16,9:1 sobre bone) */
+  --color-fern: #111111; /* menú, footer y botones oscuros */
 
-  /* Lila */
-  --color-lilac: #a98be8; /* bloques destacados, sombras duras, burbujas */
-  --color-lilac-soft: #e4daf7; /* superficies grandes, fondos de bloques */
+  /* Superficies (30%) */
+  --color-lilac: #a98be8; /* cinta washi, estrellas, detalles */
+  --color-lilac-soft: #e4daf7; /* superficie secundaria (herencia de "Taller vivo") */
+  --color-electric: #2433ff; /* azul firma: una sola sección fuerte por página */
+  --color-electric-deep: #1a26cc; /* variante oscura del azul */
 
-  /* Verdes */
-  --color-sage: #8fae8b; /* íconos, separadores, detalles secundarios */
-  --color-sage-soft: #d9e6cf; /* fondo de la sección de accesorios */
-
-  /* Acentos */
-  --color-lime: #c8f03c; /* botones, etiquetas, hover, marcas de "en proceso" */
-  --color-copihue: #e0457b; /* acento puntual: drops, agotado, detalles */
-  --color-electric: #2e3cf2; /* sección eléctrica (confección) */
-  --color-electric-deep: #2230d4; /* variante más oscura del azul para superficies */
+  /* Acción y acentos (10%) */
+  --color-lime: #d4ff3a; /* lima ácido: botones, stickers, resaltados */
+  --color-bubblegum: #ff8fc7; /* detalle juvenil puntual (nunca para texto) */
+  --color-copihue: #b8285c; /* solo errores y "agotado" (5,3:1 sobre bone) */
 
   --animate-sway: sway 3.6s ease-in-out infinite;
 
@@ -41,9 +41,11 @@
 /* `inline`: las variables de next/font viven en <body>, no en :root, así que las
    utilidades deben usar var(--font-…) directamente donde se aplican. */
 @theme inline {
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-inter);
-  --font-script: var(--font-pinyon); /* caligrafía para palabras gigantes y leyendas a mano */
+  --font-display: var(--font-bricolage); /* títulos: grotesca con rarezas */
+  --font-serif: var(--font-instrument); /* frases en cursiva, la palabra "a mano" */
+  --font-mono: var(--font-jetbrains); /* rótulos, precios, N° 01 */
+  --font-sans: var(--font-inter); /* texto */
+  --font-script: var(--font-pinyon); /* solo leyendas de las polaroids */
 }
 
 html {
@@ -82,7 +84,7 @@ html {
 body {
   background-color: var(--color-bone);
   /* Grano de papel muy sutil (ruido SVG) para que el fondo no se vea plano. */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.19 0 0 0 0 0.12 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   color: var(--color-ink);
 }
 

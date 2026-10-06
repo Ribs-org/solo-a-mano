@@ -37,12 +37,12 @@ export default function SectionNav({ sections }: { sections: NavItem[] }) {
 
   return (
     <nav aria-label="Secciones" style={{ top }}
-      className="sticky z-30 -mx-4 border-b border-sage/50 bg-bone/90 px-4 py-2 backdrop-blur">
+      className="sticky z-30 -mx-4 border-b border-ink/15 bg-bone/90 px-4 py-2 backdrop-blur">
       <ul className="flex gap-2 overflow-x-auto">
         {sections.map((s) => (
           <li key={s.id} className="shrink-0">
             <a href={`#${s.id}`} aria-current={active === s.id ? "true" : undefined}
-              className="inline-block rounded-full border border-ink/30 px-4 py-1.5 text-sm hover:bg-lime aria-[current=true]:border-ink aria-[current=true]:bg-lime">
+              className="inline-block border border-ink/30 px-3 py-1.5 font-mono text-xs uppercase tracking-wider hover:bg-lime aria-[current=true]:border-ink aria-[current=true]:bg-lime">
               {s.label}
             </a>
           </li>

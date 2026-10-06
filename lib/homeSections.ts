@@ -27,8 +27,8 @@ export const HOME_SECTIONS: HomeSection[] = [
     sketch: "taza",
     theme: {
       block: "bg-lilac-soft text-ink",
-      muted: "text-ink/75",
-      photo: "bg-lilac/40",
+      muted: "text-ink/70",
+      photo: "bg-lilac/35",
       button: "bg-ink text-bone hover:bg-lime hover:text-ink",
     },
     examples: [
@@ -64,10 +64,10 @@ export const HOME_SECTIONS: HomeSection[] = [
     category: "joyeria",
     sketch: "anillo",
     theme: {
-      block: "bg-sage-soft text-ink",
-      muted: "text-ink/75",
-      photo: "bg-sage/40",
-      button: "bg-fern text-bone hover:bg-lime hover:text-ink",
+      block: "border border-ink/15 bg-paper text-ink",
+      muted: "text-ink/70",
+      photo: "bg-bubblegum/25",
+      button: "bg-ink text-bone hover:bg-lime hover:text-ink",
     },
     examples: [
       { name: "Colgante estrella de cerámica", price_clp: 9000, image: "/ejemplos/accesorios-colgantes-estrellas.png" },

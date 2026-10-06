@@ -6,7 +6,7 @@ import { DAYS } from "@/lib/constants";
 import ScheduleWeek from "@/components/ScheduleWeek";
 import type { MarketSchedule } from "@/lib/types";
 
-const input = "rounded-lg border border-sage/50 bg-paper px-3 py-2 w-full";
+const input = "border border-ink/15 bg-paper px-3 py-2 w-full";
 
 export default function ScheduleManager({ schedules, hasArtisan }: { schedules: MarketSchedule[]; hasArtisan: boolean }) {
   const [pending, start] = useTransition();
@@ -37,7 +37,7 @@ export default function ScheduleManager({ schedules, hasArtisan }: { schedules: 
           </form>
         ))}
       </div>
-      <form ref={formRef} action={onSubmit} className="flex flex-col gap-3 rounded-2xl border border-sage/50 bg-white/60 p-4">
+      <form ref={formRef} action={onSubmit} className="flex flex-col gap-3 border border-ink/15 bg-white/60 p-4">
         <h2 className="font-display text-lg">Agregar ubicación</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="text-sm">Día
@@ -59,7 +59,7 @@ export default function ScheduleManager({ schedules, hasArtisan }: { schedules: 
           <input name="notes" placeholder="Solo la feria navideña de diciembre" className={input} />
         </label>
         {error && <p className="text-sm text-copihue">{error}</p>}
-        <button disabled={pending} className="w-fit rounded-full bg-lime px-5 py-1.5 text-sm text-ink hover:bg-fern hover:text-lime disabled:opacity-50 disabled:hover:bg-lime disabled:hover:text-ink">
+        <button disabled={pending} className="w-fit bg-lime uppercase tracking-wide px-5 py-1.5 text-sm text-ink hover:bg-fern hover:text-lime disabled:opacity-50 disabled:hover:bg-lime disabled:hover:text-ink">
           Agregar
         </button>
       </form>

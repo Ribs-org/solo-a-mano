@@ -30,9 +30,9 @@ export default async function ProductoPage({ params }: { params: Promise<{ id: s
       <div className="flex flex-col gap-3">
         {product.photo_urls.length
           ? product.photo_urls.map((u) => (
-              <Image key={u} src={u} alt={product.name} width={800} height={800} className="w-full rounded-2xl object-cover" />
+              <Image key={u} src={u} alt={product.name} width={800} height={800} className="w-full object-cover" />
             ))
-          : <div className="flex aspect-square items-center justify-center rounded-2xl bg-lilac-soft text-ink/60">Sin foto</div>}
+          : <div className="flex aspect-square items-center justify-center bg-lilac-soft text-ink/60">Sin foto</div>}
       </div>
       <div>
         <p className="text-sm text-ink/60">{categoryLabel(product.category)}</p>
@@ -41,7 +41,7 @@ export default async function ProductoPage({ params }: { params: Promise<{ id: s
         {!product.available && <p className="mt-1 text-sm font-medium text-copihue">Agotado por ahora</p>}
         {product.description && <p className="mt-4 whitespace-pre-line">{product.description}</p>}
 
-        <div className="mt-6 rounded-2xl border border-sage/50 bg-white/60 p-4">
+        <div className="mt-6 border border-ink/15 bg-white/60 p-4">
           <Link href={`/artesano/${artisan.slug}`} className="flex items-center gap-3 hover:bg-lime">
             {artisan.profile_photo_url
               ? <Image src={artisan.profile_photo_url} alt={artisan.shop_name} width={48} height={48}

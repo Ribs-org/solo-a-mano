@@ -21,17 +21,17 @@ export default async function ProductosPage() {
     <div>
       <div className="mb-4 flex items-center justify-between">
         <h1 className="font-display text-2xl">Mis productos</h1>
-        <Link href="/panel/productos/editor" className="rounded-full bg-lime px-4 py-1.5 text-sm text-ink hover:bg-fern hover:text-lime">
+        <Link href="/panel/productos/editor" className="bg-lime uppercase tracking-wide px-4 py-1.5 text-sm text-ink hover:bg-fern hover:text-lime">
           + Nuevo producto
         </Link>
       </div>
       {!products?.length && <p className="text-ink/70">Aún no tienes productos. ¡Sube el primero!</p>}
       <ul className="grid gap-3 sm:grid-cols-2">
         {products?.map((p) => (
-          <li key={p.id} className="flex gap-3 rounded-2xl border border-sage/50 bg-white/60 p-3">
+          <li key={p.id} className="flex gap-3 border border-ink/15 bg-white/60 p-3">
             {p.photo_urls[0]
-              ? <Image src={p.photo_urls[0]} alt={p.name} width={80} height={80} className="h-20 w-20 rounded-lg object-cover" />
-              : <div className="h-20 w-20 rounded-lg bg-lilac-soft" />}
+              ? <Image src={p.photo_urls[0]} alt={p.name} width={80} height={80} className="h-20 w-20 object-cover" />
+              : <div className="h-20 w-20 bg-lilac-soft" />}
             <div className="flex-1">
               <p className="font-medium">{p.name} {!p.available && <span className="text-xs text-copihue">(agotado)</span>}</p>
               <p className="text-sm text-ink/70">{formatCLP(p.price_clp)}</p>

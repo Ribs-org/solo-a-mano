@@ -16,7 +16,7 @@ export default function RequestCard({ request, stallUrl, makingUrl, videoUrl }: 
   const [pending, start] = useTransition();
 
   return (
-    <div className="rounded-2xl border border-sage/50 bg-white/60 p-4">
+    <div className="border border-ink/15 bg-white/60 p-4">
       <div className="flex items-center justify-between">
         <p className="font-medium">
           {request.artisans.shop_name}{" "}
@@ -28,19 +28,19 @@ export default function RequestCard({ request, stallUrl, makingUrl, videoUrl }: 
       <div className="mt-3 flex flex-wrap gap-3">
         {stallUrl && <a href={stallUrl} target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={stallUrl} alt="Foto del puesto" className="h-40 rounded-lg object-cover" /></a>}
+          <img src={stallUrl} alt="Foto del puesto" className="h-40 object-cover" /></a>}
         {makingUrl && <a href={makingUrl} target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={makingUrl} alt="Haciendo el producto" className="h-40 rounded-lg object-cover" /></a>}
+          <img src={makingUrl} alt="Haciendo el producto" className="h-40 object-cover" /></a>}
       </div>
       {videoUrl && <a href={videoUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-sm underline hover:bg-lime">Ver video</a>}
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <button disabled={pending} onClick={() => start(() => approveRequest(request.id))}
-          className="rounded-full bg-fern px-5 py-1.5 text-sm text-bone hover:opacity-90 disabled:opacity-50">Aprobar sello</button>
+          className="bg-fern px-5 py-1.5 text-sm text-bone hover:opacity-90 disabled:opacity-50">Aprobar sello</button>
         <input value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Motivo del rechazo"
-          className="rounded-lg border border-sage/50 bg-paper px-3 py-1.5 text-sm" />
+          className="border border-ink/15 bg-paper px-3 py-1.5 text-sm" />
         <button disabled={pending || !comment.trim()} onClick={() => start(() => rejectRequest(request.id, comment.trim()))}
-          className="rounded-full border border-copihue px-5 py-1.5 text-sm text-ink hover:bg-copihue hover:text-paper disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-ink">Rechazar</button>
+          className="border border-copihue px-5 py-1.5 text-sm text-ink hover:bg-copihue hover:text-paper disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-ink">Rechazar</button>
       </div>
     </div>
   );

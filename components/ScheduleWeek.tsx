@@ -7,8 +7,8 @@ export default function ScheduleWeek({ schedules }: { schedules: MarketSchedule[
   return (
     <ul className="flex flex-col gap-2">
       {sorted.map((s) => (
-        <li key={s.id} className="flex flex-wrap items-baseline gap-x-2 rounded-lg bg-white/60 px-3 py-2">
-          <span className="rounded-full bg-lime px-2 font-medium text-ink">{dayLabel(s.day_of_week)}</span>
+        <li key={s.id} className="flex flex-wrap items-baseline gap-x-2 bg-white/60 px-3 py-2">
+          <span className="bg-lime uppercase tracking-wide px-2 font-medium text-ink">{dayLabel(s.day_of_week)}</span>
           <span>→ {s.place_name}</span>
           {s.comuna && <span className="text-sm text-ink/70">({s.comuna})</span>}
           {s.time_range && <span className="text-sm text-ink/70">· {s.time_range}</span>}

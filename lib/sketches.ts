@@ -23,11 +23,10 @@ export type SketchDef = {
 
 // Mismos valores que los tokens de app/globals.css (el canvas no lee variables CSS).
 const C = {
-  ink: "#17301f",
+  ink: "#111111",
   lilac: "#a98be8",
-  sage: "#8fae8b",
-  lime: "#c8f03c",
-  copihue: "#e0457b",
+  lime: "#d4ff3a",
+  bubblegum: "#ff8fc7",
 };
 
 // ---------- Generadores de formas ----------
@@ -127,17 +126,17 @@ export const SKETCHES = {
       { brush: "pen", color: C.ink, weight: 0.7, points: [[84, 30], [96, 30]] },
       { brush: "pen", color: C.ink, weight: 0.7, points: [[32, 16], [23, 8]] },
     ],
-    fills: [{ color: C.copihue, opacity: 160, points: [[56, 18], [70, 32], [56, 44], [42, 32]] }],
+    fills: [{ color: C.bubblegum, opacity: 160, points: [[56, 18], [70, 32], [56, 44], [42, 32]] }],
   },
   espiral: {
     width: 90, height: 90,
-    strokes: [{ brush: "pen", color: C.sage, weight: 1.4, points: spiral(45, 45, 3, 38) }],
+    strokes: [{ brush: "pen", color: C.ink, weight: 1.4, points: spiral(45, 45, 3, 38) }],
   },
   flecha: {
     width: 150, height: 84,
     strokes: [
-      { brush: "pen", color: C.sage, weight: 1.4, points: curve([10, 70], [60, 0], [132, 34]) },
-      { brush: "pen", color: C.sage, weight: 1.4, points: [[116, 22], [132, 34], [114, 44]] },
+      { brush: "pen", color: C.ink, weight: 1.4, points: curve([10, 70], [60, 0], [132, 34]) },
+      { brush: "pen", color: C.ink, weight: 1.4, points: [[116, 22], [132, 34], [114, 44]] },
     ],
   },
 } satisfies Record<string, SketchDef>;
