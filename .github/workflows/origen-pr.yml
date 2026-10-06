@@ -1,0 +1,22 @@
+# A main solo se llega desde dev (o desde un hotfix/*). Es un check obligatorio en main.
+name: Origen del PR
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize, edited]
+
+jobs:
+  origen-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar rama de origen
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          if [[ "$HEAD_REF" == "dev" || "$HEAD_REF" == hotfix/* ]]; then
+            echo "OK: $HEAD_REF -> main"
+          else
+            echo "::error::A main solo se mergea desde 'dev' o 'hotfix/*' (este PR viene de '$HEAD_REF'). Apunta tu PR a dev."
+            exit 1
+          fi
