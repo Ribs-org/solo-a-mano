@@ -14,11 +14,14 @@ export default function ExploreGrid({ initial, filters }: { initial: ExploreItem
   const [loading, setLoading] = useState(false);
   const sentinel = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  // Si cambian los resultados iniciales, se reinicia el scroll infinito (ajuste durante el render, sin efecto).
+  const [prevInitial, setPrevInitial] = useState(initial);
+  if (initial !== prevInitial) {
+    setPrevInitial(initial);
     setItems(initial);
     setPage(0);
     setDone(initial.length < PAGE_SIZE);
-  }, [initial]);
+  }
 
   useEffect(() => {
     if (done || !sentinel.current) return;
