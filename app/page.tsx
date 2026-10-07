@@ -1,77 +1,65 @@
-import Link from "next/link";
-import Image from "next/image";
+import SectionNav from "@/components/home/SectionNav";
+import Scene from "@/components/home/Scene";
+import Thread from "@/components/home/Thread";
+import Sketch from "@/components/Sketch";
+import { HOME_SECTIONS } from "@/lib/homeSections";
 import { createServerSupabase } from "@/lib/supabase/server";
-import { CATEGORIES } from "@/lib/constants";
-import SelloBadge from "@/components/SelloBadge";
-import type { Artisan } from "@/lib/types";
+import { FEATURED_COLUMNS, featuredBySection, type ArtisanRow } from "@/lib/featuredArtisans";
 
-export default async function Home() {
+/** Artesanos verificados de las categorías de las escenas, mejor evaluados primero. Si falla, lista vacía. */
+async function loadFeaturedRows(): Promise<ArtisanRow[]> {
   const supabase = await createServerSupabase();
-  const { data: featured } = await supabase
-    .from("artisans").select("*").eq("verification_status", "verificado")
-    .order("rating_avg", { ascending: false }).limit(4).returns<Artisan[]>();
+  const { data, error } = await supabase
+    .from("artisans").select(FEATURED_COLUMNS)
+    .eq("verification_status", "verificado")
+    .in("main_category", HOME_SECTIONS.flatMap((s) => s.artisanCategories))
+    .order("rating_avg", { ascending: false }).limit(40)
+    .returns<ArtisanRow[]>();
+  return error || !data ? [] : data;
+}
 
+// Portada en tres escenas en zigzag (izquierda, derecha, izquierda) unidas por un hilo.
+// "Desde el taller", categorías y artesanos con sello quedan fuera de la portada por ahora.
+export default async function Home() {
+  // Burbujas: reales primero y, si faltan, perfiles de ejemplo (ver lib/featuredArtisans.ts).
+  const featured = featuredBySection(await loadFeaturedRows(), HOME_SECTIONS);
+
+  // A todo el ancho: las escenas se pegan a las orillas de la pantalla y las manchas pueden salirse por ellas.
   return (
-    <div className="mx-auto max-w-6xl px-4">
-      <section className="flex flex-col items-center gap-4 py-16 text-center">
-        <Image src="/logo.png" alt="Sólo A Mano" width={140} height={140} className="rounded-full" />
-        <h1 className="font-display text-4xl sm:text-5xl">Solo cosas hechas a mano</h1>
-        <p className="max-w-xl text-cafe/80">
-          Descubre a los artesanos de las ferias de Chile: sus productos, su historia y dónde encontrarlos esta semana.
-        </p>
-        <form action="/explorar" className="flex w-full max-w-md gap-2">
-          <input name="q" placeholder="Busca carteras, quesos, cerámica…"
-            className="flex-1 rounded-full border border-beige bg-white/70 px-4 py-2" />
-          <button className="rounded-full bg-terracota px-5 py-2 text-crema hover:bg-cafe">Buscar</button>
-        </form>
-      </section>
+    <div className="relative overflow-x-clip">
+      <Thread />
 
-      <section className="py-6">
-        <h2 className="mb-3 font-display text-2xl">Categorías</h2>
-        <div className="flex flex-wrap gap-2">
-          {CATEGORIES.map((c) => (
-            <Link key={c.value} href={`/explorar?categoria=${c.value}`}
-              className="rounded-full border border-cafe/30 px-4 py-1.5 text-sm hover:bg-ambar/30">
-              {c.label}
-            </Link>
-          ))}
+      {/* Portada breve, pegada a la izquierda; a la derecha nace el hilo desde una mancha lima. */}
+      <section className="relative grid items-center gap-10 px-4 md:px-10 lg:px-16 py-16 md:grid-cols-[1.5fr_1fr] md:py-24">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/70">Temporada 2026 · Ferias de Chile</p>
+          <h1 className="mt-5 font-display text-5xl font-medium leading-[0.95] tracking-tight sm:text-7xl">
+            <span className="font-serif font-normal italic">Solo cosas</span>{" "}
+            <span className="sm:block">hechas a mano</span>
+          </h1>
+          <Sketch name="subrayado" className="mt-1 max-w-full" />
+          <p className="mt-6 max-w-md text-lg text-ink/70">
+            Descubre a los artesanos de las ferias de Chile: sus productos, su historia y dónde encontrarlos esta semana.
+          </p>
+          <form action="/explorar" className="mt-8 flex w-full max-w-md gap-2">
+            <input name="q" placeholder="Busca carteras, quesos, cerámica…" aria-label="Buscar productos"
+              className="min-w-0 flex-1 rounded-full border border-ink/20 bg-paper px-5 py-2.5" />
+            <button className="rounded-full border border-ink bg-lime px-6 py-2.5 text-sm font-medium text-ink hover:bg-ink hover:text-lime">
+              Buscar
+            </button>
+          </form>
+        </div>
+        <div aria-hidden="true" className="relative hidden h-72 md:block">
+          <div className="parallax absolute inset-[8%] [--speed:50px]">
+            <div className="blob h-full w-full bg-lime" />
+          </div>
+          <Sketch name="estrella" className="parallax absolute left-[18%] top-[12%] [--speed:-40px]" />
+          <Sketch name="estrella" className="parallax absolute bottom-[14%] right-[20%] rotate-12 [--speed:-70px]" />
         </div>
       </section>
 
-      {!!featured?.length && (
-        <section className="py-6">
-          <h2 className="mb-3 font-display text-2xl">Artesanos con sello</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((a) => (
-              <Link key={a.id} href={`/artesano/${a.slug}`}
-                className="overflow-hidden rounded-2xl border border-beige bg-white/70 transition hover:shadow-md">
-                {a.profile_photo_url
-                  ? <Image src={a.profile_photo_url} alt={a.shop_name} width={300} height={200}
-                      className="h-36 w-full object-cover" />
-                  : <div className="h-36 w-full bg-beige" />}
-                <div className="p-3">
-                  <p className="font-medium">{a.shop_name}</p>
-                  <SelloBadge status={a.verification_status} />
-                  {a.rating_count > 0 && (
-                    <p className="mt-1 text-xs text-cafe/70">★ {Number(a.rating_avg).toFixed(1)} ({a.rating_count})</p>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section className="my-10 rounded-3xl bg-verde px-6 py-10 text-center text-crema">
-        <h2 className="font-display text-2xl">¿Eres artesano?</h2>
-        <p className="mx-auto mt-2 max-w-lg text-crema/90">
-          Crea tu perfil gratis, muestra tu catálogo y cuéntale a todos dónde encontrarte. Si todo lo tuyo es hecho a
-          mano, postula al sello Sólo A Mano.
-        </p>
-        <Link href="/cuenta" className="mt-4 inline-block rounded-full bg-ambar px-6 py-2 font-medium text-verde hover:bg-crema">
-          Súmate gratis
-        </Link>
-      </section>
+      <SectionNav sections={HOME_SECTIONS.map(({ id, title }) => ({ id, label: title }))} />
+      {HOME_SECTIONS.map((section) => <Scene key={section.id} section={section} featured={featured[section.id]} />)}
     </div>
   );
 }

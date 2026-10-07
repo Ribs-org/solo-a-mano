@@ -1,19 +1,164 @@
 @import "tailwindcss";
 
 @theme {
-  --color-terracota: #c05d3e;
-  --color-beige: #d9c7b8;
-  --color-crema: #f5efe6;
-  --color-cafe: #6e4f3a;
-  --color-ambar: #e0a96d;
-  --color-verde: #2e3b32;
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-inter);
+  /* Sistema "Revolución editorial" (ver docs/sistema-diseno.md). Proporción 60/30/10:
+     papel de fondo, superficies de color, y acción en lima. */
+
+  /* Base */
+  --color-bone: #f4f2ec; /* fondo de papel (60%) */
+  --color-paper: #fbfaf6; /* tarjetas, campos de formulario, polaroids */
+  --color-ink: #111111; /* texto, líneas finas y bloques oscuros (16,9:1 sobre bone) */
+  --color-fern: #111111; /* menú, footer y botones oscuros */
+
+  /* Superficies (30%) */
+  --color-lilac: #a98be8; /* cinta washi, estrellas, detalles */
+  --color-lilac-soft: #e4daf7; /* superficie secundaria (herencia de "Taller vivo") */
+  --color-electric: #2433ff; /* azul firma: una sola sección fuerte por página */
+  --color-electric-deep: #1a26cc; /* variante oscura del azul */
+
+  /* Acción y acentos (10%) */
+  --color-lime: #d4ff3a; /* lima ácido: botones, stickers, resaltados */
+  --color-bubblegum: #ff8fc7; /* detalle juvenil puntual (nunca para texto) */
+  --color-copihue: #b8285c; /* solo errores y "agotado" (5,3:1 sobre bone) */
+
+  --animate-sway: sway 3.6s ease-in-out infinite;
+  --animate-float: float 7s ease-in-out infinite;
+
+  /* Vaivén vertical de las burbujas de artesanos destacados. */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+
+  /* Vaivén suave de las fotos de producto, como si bailaran. */
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(0deg) translateY(0);
+    }
+    25% {
+      transform: rotate(-2.5deg) translateY(-3px);
+    }
+    75% {
+      transform: rotate(2.5deg) translateY(-3px);
+    }
+  }
+}
+
+/* `inline`: las variables de next/font viven en <body>, no en :root, así que las
+   utilidades deben usar var(--font-…) directamente donde se aplican. */
+@theme inline {
+  --font-display: var(--font-bricolage); /* títulos: grotesca con rarezas */
+  --font-serif: var(--font-instrument); /* frases en cursiva, la palabra "a mano" */
+  --font-mono: var(--font-jetbrains); /* rótulos, precios, N° 01 */
+  --font-sans: var(--font-inter); /* texto */
+  --font-script: var(--font-pinyon); /* solo leyendas de las polaroids */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Parallax con animaciones ligadas al scroll (sin JS). `--speed` es cuánto se desplaza
+   el elemento mientras cruza la pantalla: positivo = más lento que el scroll (se siente
+   al fondo), negativo = más rápido (se siente cerca). Usa la propiedad `translate`, así
+   no pisa el `transform` del baile. Donde no hay soporte (p. ej. Firefox) queda quieto. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax {
+      --parallax-scale: 1;
+      animation: parallax linear both;
+      animation-timeline: view();
+    }
+
+    @media (max-width: 640px) {
+      .parallax {
+        --parallax-scale: 0.5; /* en celular, más suave */
+      }
+    }
+
+    @keyframes parallax {
+      from {
+        translate: 0 calc(var(--speed, 40px) * var(--parallax-scale) * -1);
+      }
+      to {
+        translate: 0 calc(var(--speed, 40px) * var(--parallax-scale));
+      }
+    }
+
+    /* Cada escena entra deslizándose desde su lado (--from: -1 izquierda, 1 derecha). */
+    .scene-enter {
+      animation: scene-enter linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    @keyframes scene-enter {
+      from {
+        opacity: 0;
+        translate: calc(var(--from, -1) * 10vw) 0;
+      }
+      to {
+        opacity: 1;
+        translate: 0 0;
+      }
+    }
+
+    /* El hilo se dibuja a medida que se recorre la página. Sin soporte queda dibujado entero. */
+    .thread-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: thread-draw linear both;
+      animation-timeline: scroll(root);
+    }
+
+    @keyframes thread-draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+}
+
+/* Mancha orgánica: cambia de forma muy lento, como si respirara. */
+.blob {
+  border-radius: 58% 42% 55% 45% / 46% 54% 46% 54%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .blob {
+    animation: blob 16s ease-in-out infinite;
+  }
+}
+
+@keyframes blob {
+  0%,
+  100% {
+    border-radius: 58% 42% 55% 45% / 46% 54% 46% 54%;
+  }
+  33% {
+    border-radius: 40% 60% 38% 62% / 58% 40% 60% 42%;
+  }
+  66% {
+    border-radius: 63% 37% 50% 50% / 38% 62% 44% 56%;
+  }
+}
+
+/* Etiqueta de cartón colgante: esquinas superiores recortadas como una etiqueta de equipaje. */
+.hang-tag {
+  clip-path: polygon(16% 0, 84% 0, 100% 22%, 100% 100%, 0 100%, 0 22%);
 }
 
 body {
-  background-color: var(--color-crema);
-  color: var(--color-cafe);
+  background-color: var(--color-bone);
+  /* Grano de papel muy sutil (ruido SVG) para que el fondo no se vea plano. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0 0.07 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--color-ink);
 }
 
 /* Consistent hover transitions on every interactive element that doesn't
@@ -30,17 +175,21 @@ summary {
 
 /* Palette-consistent keyboard focus ring, visible on every interactive element. */
 :focus-visible {
-  outline: 2px solid var(--color-terracota);
+  outline: 2px solid var(--color-electric);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 ::selection {
-  background-color: var(--color-terracota);
-  color: var(--color-crema);
+  background-color: var(--color-lilac);
+  color: var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {

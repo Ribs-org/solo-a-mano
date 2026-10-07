@@ -32,7 +32,7 @@ export default async function ArtesanoPage({ params }: { params: Promise<{ slug:
 
   return (
     <div>
-      <div className="h-44 w-full bg-beige sm:h-60">
+      <div className="h-44 w-full bg-lilac-soft sm:h-60">
         {artisan.cover_photo_url && (
           <Image src={artisan.cover_photo_url} alt="" width={1200} height={300} className="h-full w-full object-cover" />
         )}
@@ -41,14 +41,14 @@ export default async function ArtesanoPage({ params }: { params: Promise<{ slug:
         <div className="-mt-10 flex flex-wrap items-end gap-4 sm:-mt-12">
           {artisan.profile_photo_url
             ? <Image src={artisan.profile_photo_url} alt={artisan.shop_name} width={112} height={112}
-                className="h-24 w-24 rounded-full border-4 border-crema object-cover sm:h-28 sm:w-28" />
-            : <div className="h-24 w-24 rounded-full border-4 border-crema bg-ambar sm:h-28 sm:w-28" />}
+                className="h-24 w-24 rounded-full border-4 border-bone object-cover sm:h-28 sm:w-28" />
+            : <div className="h-24 w-24 rounded-full border-4 border-bone bg-lilac sm:h-28 sm:w-28" />}
           <div className="pb-1">
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="font-display text-2xl sm:text-3xl">{artisan.shop_name}</h1>
               <SelloBadge status={artisan.verification_status} size="lg" />
             </div>
-            <p className="text-sm text-cafe/70">
+            <p className="text-sm text-ink/70">
               {categoryLabel(artisan.main_category)}{artisan.comuna && ` · ${artisan.comuna}`}
             </p>
             {artisan.rating_count > 0 && (
@@ -75,7 +75,7 @@ export default async function ArtesanoPage({ params }: { params: Promise<{ slug:
           <h2 className="mb-3 font-display text-2xl">Catálogo</h2>
           {products?.length
             ? <MasonryGrid>{products.map((p) => <ProductCard key={p.id} product={p} artisan={artisan} />)}</MasonryGrid>
-            : <p className="text-cafe/60">Este artesano aún no sube productos.</p>}
+            : <p className="text-ink/60">Este artesano aún no sube productos.</p>}
         </section>
 
         <section id="resenas" className="mt-8 pb-8">

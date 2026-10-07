@@ -43,3 +43,6 @@ next-env.d.ts
 
 # superpowers (scratch)
 .superpowers/
+
+# Fotos del moodboard (de terceros) usadas como placeholder; no subir al repositorio.
+/public/moodboard-placeholder/

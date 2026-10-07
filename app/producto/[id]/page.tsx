@@ -32,21 +32,21 @@ export default async function ProductoPage({ params }: { params: Promise<{ id: s
           ? product.photo_urls.map((u) => (
               <Image key={u} src={u} alt={product.name} width={800} height={800} className="w-full rounded-2xl object-cover" />
             ))
-          : <div className="flex aspect-square items-center justify-center rounded-2xl bg-beige text-cafe/60">Sin foto</div>}
+          : <div className="flex aspect-square items-center justify-center rounded-2xl bg-lilac-soft text-ink/60">Sin foto</div>}
       </div>
       <div>
-        <p className="text-sm text-cafe/60">{categoryLabel(product.category)}</p>
+        <p className="text-sm text-ink/60">{categoryLabel(product.category)}</p>
         <h1 className="font-display text-3xl">{product.name}</h1>
-        <p className="mt-1 text-xl text-terracota">{formatCLP(product.price_clp)}</p>
-        {!product.available && <p className="mt-1 text-sm font-medium text-terracota">Agotado por ahora</p>}
+        <p className="mt-1 text-xl font-semibold text-ink">{formatCLP(product.price_clp)}</p>
+        {!product.available && <p className="mt-1 text-sm font-medium text-copihue">Agotado por ahora</p>}
         {product.description && <p className="mt-4 whitespace-pre-line">{product.description}</p>}
 
-        <div className="mt-6 rounded-2xl border border-beige bg-white/60 p-4">
-          <Link href={`/artesano/${artisan.slug}`} className="flex items-center gap-3 hover:text-terracota">
+        <div className="mt-6 rounded-2xl border border-ink/15 bg-white/60 p-4">
+          <Link href={`/artesano/${artisan.slug}`} className="flex items-center gap-3 hover:bg-lime">
             {artisan.profile_photo_url
               ? <Image src={artisan.profile_photo_url} alt={artisan.shop_name} width={48} height={48}
                   className="h-12 w-12 rounded-full object-cover" />
-              : <div className="h-12 w-12 rounded-full bg-ambar" />}
+              : <div className="h-12 w-12 rounded-full bg-lilac" />}
             <div>
               <p className="font-medium">{artisan.shop_name}</p>
               <SelloBadge status={artisan.verification_status} />
