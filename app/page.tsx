@@ -3,10 +3,27 @@ import Scene from "@/components/home/Scene";
 import Thread from "@/components/home/Thread";
 import Sketch from "@/components/Sketch";
 import { HOME_SECTIONS } from "@/lib/homeSections";
+import { createServerSupabase } from "@/lib/supabase/server";
+import { FEATURED_COLUMNS, featuredBySection, type ArtisanRow } from "@/lib/featuredArtisans";
+
+/** Artesanos verificados de las categorías de las escenas, mejor evaluados primero. Si falla, lista vacía. */
+async function loadFeaturedRows(): Promise<ArtisanRow[]> {
+  const supabase = await createServerSupabase();
+  const { data, error } = await supabase
+    .from("artisans").select(FEATURED_COLUMNS)
+    .eq("verification_status", "verificado")
+    .in("main_category", HOME_SECTIONS.flatMap((s) => s.artisanCategories))
+    .order("rating_avg", { ascending: false }).limit(40)
+    .returns<ArtisanRow[]>();
+  return error || !data ? [] : data;
+}
 
 // Portada en tres escenas en zigzag (izquierda, derecha, izquierda) unidas por un hilo.
 // "Desde el taller", categorías y artesanos con sello quedan fuera de la portada por ahora.
-export default function Home() {
+export default async function Home() {
+  // Burbujas: reales primero y, si faltan, perfiles de ejemplo (ver lib/featuredArtisans.ts).
+  const featured = featuredBySection(await loadFeaturedRows(), HOME_SECTIONS);
+
   // A todo el ancho: las escenas se pegan a las orillas de la pantalla y las manchas pueden salirse por ellas.
   return (
     <div className="relative overflow-x-clip">
@@ -42,7 +59,7 @@ export default function Home() {
       </section>
 
       <SectionNav sections={HOME_SECTIONS.map(({ id, title }) => ({ id, label: title }))} />
-      {HOME_SECTIONS.map((section) => <Scene key={section.id} section={section} />)}
+      {HOME_SECTIONS.map((section) => <Scene key={section.id} section={section} featured={featured[section.id]} />)}
     </div>
   );
 }

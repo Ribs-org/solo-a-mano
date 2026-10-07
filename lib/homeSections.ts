@@ -1,5 +1,6 @@
 import type { Category } from "@/lib/constants";
 import type { SketchName } from "@/lib/sketches";
+import type { ExampleArtisan } from "@/lib/featuredArtisans";
 
 /**
  * Dónde flota el PNG dentro de su escena (solo en pantallas medianas o más; en celular van en
@@ -24,6 +25,10 @@ export type HomeSection = {
   category: Category;
   /** Clase de color de la mancha orgánica detrás de los productos (literal, para Tailwind). */
   blob: string;
+  /** Categorías principales de los artesanos destacados (burbujas) de esta sección. */
+  artisanCategories: Category[];
+  /** Perfiles de respaldo si aún no hay suficientes artesanos verificados. */
+  exampleArtisans: ExampleArtisan[];
   /** Dibujo de oficio que va como anotación en el lado libre. */
   sketch: SketchName;
   /** Productos de ejemplo mientras la sección no se conecta a datos reales. */
@@ -40,6 +45,12 @@ export const HOME_SECTIONS: HomeSection[] = [
     side: "left",
     category: "ceramica",
     blob: "bg-lilac-soft",
+    artisanCategories: ["ceramica", "madera"],
+    exampleArtisans: [
+      { name: "Greda de Pomaire", comuna: "Pomaire" },
+      { name: "Taller Loza Azul", comuna: "Valparaíso" },
+      { name: "Raíces de Madera", comuna: "Valdivia" },
+    ],
     sketch: "taza",
     examples: [
       { name: "Incensario espiral esmaltado", price_clp: 14000, image: "/ejemplos/ceramica-incensario-espiral.png",
@@ -61,6 +72,12 @@ export const HOME_SECTIONS: HomeSection[] = [
     side: "right",
     category: "tejidos",
     blob: "bg-electric",
+    artisanCategories: ["tejidos", "carteras_bolsos", "zapatos_cuero"],
+    exampleArtisans: [
+      { name: "Telar del Sur", comuna: "Castro" },
+      { name: "Cuero Nativo", comuna: "Santiago" },
+      { name: "Lana Viva", comuna: "Puerto Varas" },
+    ],
     sketch: "aguja",
     examples: [
       { name: "Conjunto de lino verde", price_clp: 58000, image: "/ejemplos/confeccion-conjunto-lino-verde.png",
@@ -82,6 +99,12 @@ export const HOME_SECTIONS: HomeSection[] = [
     side: "left",
     category: "joyeria",
     blob: "bg-bubblegum/60",
+    artisanCategories: ["joyeria"],
+    exampleArtisans: [
+      { name: "Plata Fina", comuna: "Ñuñoa" },
+      { name: "Cobre y Piedra", comuna: "Calama" },
+      { name: "Lapislázuli Andino", comuna: "Ovalle" },
+    ],
     sketch: "anillo",
     examples: [
       { name: "Colgante estrella de cerámica", price_clp: 9000, image: "/ejemplos/accesorios-colgantes-estrellas.png",

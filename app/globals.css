@@ -22,6 +22,18 @@
   --color-copihue: #b8285c; /* solo errores y "agotado" (5,3:1 sobre bone) */
 
   --animate-sway: sway 3.6s ease-in-out infinite;
+  --animate-float: float 7s ease-in-out infinite;
+
+  /* Vaivén vertical de las burbujas de artesanos destacados. */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
 
   /* Vaivén suave de las fotos de producto, como si bailaran. */
   @keyframes sway {

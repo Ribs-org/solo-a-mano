@@ -74,7 +74,10 @@ Títulos: `text-5xl` → `sm:text-7xl`, `leading-[0.95]`. Nada de títulos en ma
 1. Portada breve pegada a la izquierda; a la derecha, mancha lima donde nace el hilo.
 2. Tres escenas que se alternan: **izquierda, derecha, izquierda** (`side` en `lib/homeSections.ts`).
    Título y productos van pegados al mismo lado; el lado libre queda para respirar, el sketch del oficio y el hilo.
-3. Color de cada escena solo en su mancha: lila (Cerámicas), azul eléctrico (Fashion), rosado (Joyería).
+3. **Burbujas de talleres destacados** en el lado libre (contrario al contenido): 3 círculos escalonados que flotan
+   (`animate-float`), con foto o inicial y el nombre al lado. Salen de Supabase (verificados de las categorías de la escena,
+   mejor evaluados primero) y se completan con perfiles de ejemplo (`lib/featuredArtisans.ts`). En celular, en una fila bajo los productos.
+4. Color de cada escena solo en su mancha: lila (Cerámicas), azul eléctrico (Fashion), rosado (Joyería).
 
 ## Movimiento
 

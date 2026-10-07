@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import Sketch from "@/components/Sketch";
+import FeaturedBubbles from "@/components/home/FeaturedBubbles";
+import type { FeaturedArtisan } from "@/lib/featuredArtisans";
 import { formatCLP } from "@/lib/utils";
 import type { ExampleProduct, HomeSection } from "@/lib/homeSections";
 
@@ -8,7 +10,7 @@ import type { ExampleProduct, HomeSection } from "@/lib/homeSections";
  * Una escena de la portada: título, mancha de color y productos flotando, pegados al lado
  * que indica la sección (las escenas se alternan para formar el zigzag que recorre el hilo).
  */
-export default function Scene({ section }: { section: HomeSection }) {
+export default function Scene({ section, featured }: { section: HomeSection; featured: FeaturedArtisan[] }) {
   const right = section.side === "right";
   return (
     <section id={section.id} data-side={section.side} aria-labelledby={`${section.id}-titulo`}
@@ -42,6 +44,8 @@ export default function Scene({ section }: { section: HomeSection }) {
           </ul>
         </div>
       </div>
+
+      <FeaturedBubbles id={section.id} title={section.title} side={section.side} artisans={featured} />
     </section>
   );
 }
