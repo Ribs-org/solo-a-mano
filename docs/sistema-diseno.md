@@ -1,18 +1,18 @@
 # Sistema de diseño — Sólo A Mano
 
-Dirección **"Revolución editorial"**: la interfaz habla como una marca de moda independiente
-(tipografía protagonista, grilla de revista, esquinas rectas) y lo hecho a mano aparece en el
-contenido (fotos de taller, sketches de p5.brush, polaroids, textura de papel).
+Dirección **orgánica y en zigzag**: colores vivos de marca joven (lima ácido, azul eléctrico,
+rosado) sobre papel, con formas blandas en vez de cajas. Los productos flotan sueltos sobre
+manchas de color, cuelgan etiquetas de cartón y un hilo recorre la portada uniendo las escenas.
 
 Pilares de marca y cómo se traducen:
 
 | Pilar | En la interfaz |
 |---|---|
-| Creatividad | Grilla asimétrica, stickers girados, sketches a mano |
+| Creatividad | Composición en zigzag, productos flotando, sketches a mano |
 | Juventud | Grotesca con actitud, lima ácido y azul eléctrico |
 | Natural | Fondo de papel con grano, fotos de proceso, tinta en vez de colores digitales |
-| Revolución | Un marketplace de ferias que se ve como una marca de vanguardia |
-| Irrepetible | Cada pieza presentada como única ("N° 01", "Drop 01"); sketches que nunca se dibujan igual |
+| Revolución | Un marketplace de ferias con colores y composición de marca joven, no de catálogo |
+| Irrepetible | Cada pieza con su lugar, tamaño y giro propios; sketches que nunca se dibujan igual |
 
 ## Color
 
@@ -50,31 +50,43 @@ Fuentes cargadas con `next/font` en `app/layout.tsx`.
 
 | Clase | Fuente | Uso |
 |---|---|---|
-| `font-display` | Bricolage Grotesque (variable, ejes `opsz` y `wdth`) | Títulos: `font-extrabold uppercase`, tracking negativo, `[font-stretch:80–85%]` en los grandes |
-| `font-serif` | Instrument Serif (cursiva) | Frases y la palabra destacada ("a mano", "taller"); bajadas de sección |
-| `font-mono` | JetBrains Mono | Rótulos (`N° 01`, `Drop 01`), precios, botones y navegación por secciones |
-| `font-sans` | Inter | Texto corrido y formularios |
+| `font-serif` | Instrument Serif (cursiva) | La primera palabra de cada título (*Cerámicas*, *Fashion*, *Solo cosas*) |
+| `font-display` | Bricolage Grotesque | El resto del título, en **minúsculas** y peso medio (`font-medium tracking-tight`) |
+| `font-mono` | JetBrains Mono | Precios y rótulos pequeños ("Temporada 2026") |
+| `font-sans` | Inter | Texto corrido, botones y formularios |
 | `font-script` | Pinyon Script | **Solo** leyendas de las polaroids |
 
-Escala orientativa: título de portada `clamp(3rem, 9vw, 7.5rem)` · título de sección `text-4xl`→`sm:text-6xl` ·
-texto 16px · rótulos mono 10–12px en mayúsculas con `tracking-[0.2em]`.
+Títulos: `text-5xl` → `sm:text-7xl`, `leading-[0.95]`. Nada de títulos en mayúsculas.
 
 ## Forma y componentes
 
-- **Esquinas rectas** en botones, campos, bloques y tarjetas. Solo son redondos los avatares y el logo.
-- **Líneas finas** (`border-ink/15`, o `border-ink` para separar zonas) en vez de sombras.
-- **Botón principal:** `bg-lime`, texto en mayúsculas, borde `ink`; al pasar el mouse invierte a `bg-ink text-lime`.
-- **Sticker:** `bg-lime border border-ink font-mono uppercase`, girado (`-rotate-6`). Para "Ejemplo", "Nuevo", "100% hecho a mano".
-- **Ficha de producto:** foto sobre `paper` + tinte de la sección; debajo, nombre en mayúsculas a la izquierda y precio en mono a la derecha, separados por una línea fina.
+- **Nada de cajas.** Las agrupaciones se marcan con **manchas orgánicas** (`.blob`, cambian de forma lento), no con rectángulos.
+- **Esquinas redondeadas:** botones y buscador en píldora (`rounded-full`), tarjetas `rounded-2xl`, campos `rounded-lg`.
+- **Botón principal:** píldora `bg-lime` con borde `ink`; al pasar el mouse invierte a `bg-ink text-lime`.
+- **Producto flotante:** PNG recortado, sin marco, con `drop-shadow` que sigue la silueta y el baile (`animate-sway`).
+  Su lugar, tamaño y giro se definen a mano en `lib/homeSections.ts` (`spot`).
+- **Etiqueta colgante** (`.hang-tag`): cartón `paper` con esquinas recortadas y hoyito, atado con un hilo;
+  nombre en Inter, precio en mono y sello "Ejemplo" en lima.
 - **Polaroid:** marco `paper`, cinta washi (`lilac`/`lime`), leyenda en `font-script`, levemente girada.
+
+## Composición de la portada
+
+1. Portada breve pegada a la izquierda; a la derecha, mancha lima donde nace el hilo.
+2. Tres escenas que se alternan: **izquierda, derecha, izquierda** (`side` en `lib/homeSections.ts`).
+   Título y productos van pegados al mismo lado; el lado libre queda para respirar, el sketch del oficio y el hilo.
+3. Color de cada escena solo en su mancha: lila (Cerámicas), azul eléctrico (Fashion), rosado (Joyería).
 
 ## Movimiento
 
-- Baile de las piezas (`animate-sway`), sketches que se dibujan al aparecer, parallax con `.parallax` + `--speed`.
-- Todo se apaga con `prefers-reduced-motion`.
-- Parallax y `animate-sway` usan ambos `animation`: nunca en el mismo elemento (parallax en el contenedor).
+- **Entrada lateral:** cada escena entra deslizándose desde su lado (`.scene-enter`, `--from: -1 | 1`).
+- **Parallax por capas:** mancha lenta (`--speed` positivo), productos rápidos y cada uno distinto (negativo).
+- **Hilo** (`components/home/Thread.tsx`): se dibuja a medida que se recorre la página (`.thread-path`). Solo desde `md`.
+- Baile de las piezas y sketches que se dibujan al aparecer.
+- Todo se apaga con `prefers-reduced-motion`. Parallax y `animate-sway` usan ambos `animation`: nunca en el mismo elemento.
 
 ## Pendiente (segunda pasada)
 
-Las páginas fuera de la portada (explorar, producto, artesano, panel, cuenta, admin) ya heredan colores,
-fuentes y esquinas, pero falta adaptarles el layout editorial (títulos grotescos en mayúsculas, rótulos mono).
+- Las páginas fuera de la portada (explorar, producto, artesano, panel, cuenta, admin) heredan colores,
+  fuentes y esquinas redondeadas, pero aún no la composición orgánica.
+- "Desde el taller", categorías y artesanos con sello están fuera de la portada por ahora
+  (los componentes siguen en `components/home/`).

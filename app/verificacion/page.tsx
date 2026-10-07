@@ -25,7 +25,7 @@ export default function VerificacionPage() {
         <p className="text-sm text-ink/70">
           Si una solicitud se rechaza, te contamos el motivo y puedes volver a postular cuando quieras.
         </p>
-        <Link href="/panel/verificacion" className="mx-auto mt-2 w-fit bg-lime uppercase tracking-wide px-6 py-2 text-ink hover:bg-fern hover:text-lime">
+        <Link href="/panel/verificacion" className="mx-auto mt-2 w-fit rounded-full bg-lime px-6 py-2 text-ink hover:bg-fern hover:text-lime">
           Postular al sello
         </Link>
       </div>

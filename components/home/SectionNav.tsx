@@ -42,7 +42,7 @@ export default function SectionNav({ sections }: { sections: NavItem[] }) {
         {sections.map((s) => (
           <li key={s.id} className="shrink-0">
             <a href={`#${s.id}`} aria-current={active === s.id ? "true" : undefined}
-              className="inline-block border border-ink/30 px-3 py-1.5 font-mono text-xs uppercase tracking-wider hover:bg-lime aria-[current=true]:border-ink aria-[current=true]:bg-lime">
+              className="inline-block rounded-full border border-ink/30 px-4 py-1.5 text-sm hover:bg-lime aria-[current=true]:border-ink aria-[current=true]:bg-lime">
               {s.label}
             </a>
           </li>

@@ -5,7 +5,7 @@ import { CATEGORIES } from "@/lib/constants";
 import ImageUploader from "@/components/ImageUploader";
 import type { Artisan } from "@/lib/types";
 
-const input = "border border-ink/15 bg-paper px-3 py-2 w-full";
+const input = "rounded-lg border border-ink/15 bg-paper px-3 py-2 w-full";
 
 export default function ProfileForm({ artisan }: { artisan: Artisan | null }) {
   const [pending, start] = useTransition();
@@ -62,7 +62,7 @@ export default function ProfileForm({ artisan }: { artisan: Artisan | null }) {
       </div>
       {error && <p className="text-sm text-copihue">{error}</p>}
       {saved && <p className="text-sm text-fern">Guardado ✓</p>}
-      <button disabled={pending} className="w-fit bg-lime uppercase tracking-wide px-6 py-2 text-ink hover:bg-fern hover:text-lime disabled:opacity-50 disabled:hover:bg-lime disabled:hover:text-ink">
+      <button disabled={pending} className="w-fit rounded-full bg-lime px-6 py-2 text-ink hover:bg-fern hover:text-lime disabled:opacity-50 disabled:hover:bg-lime disabled:hover:text-ink">
         {pending ? "Guardando…" : "Guardar"}
       </button>
     </form>

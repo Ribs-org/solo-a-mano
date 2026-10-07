@@ -78,7 +78,68 @@ html {
         translate: 0 calc(var(--speed, 40px) * var(--parallax-scale));
       }
     }
+
+    /* Cada escena entra deslizándose desde su lado (--from: -1 izquierda, 1 derecha). */
+    .scene-enter {
+      animation: scene-enter linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    @keyframes scene-enter {
+      from {
+        opacity: 0;
+        translate: calc(var(--from, -1) * 10vw) 0;
+      }
+      to {
+        opacity: 1;
+        translate: 0 0;
+      }
+    }
+
+    /* El hilo se dibuja a medida que se recorre la página. Sin soporte queda dibujado entero. */
+    .thread-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: thread-draw linear both;
+      animation-timeline: scroll(root);
+    }
+
+    @keyframes thread-draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
   }
+}
+
+/* Mancha orgánica: cambia de forma muy lento, como si respirara. */
+.blob {
+  border-radius: 58% 42% 55% 45% / 46% 54% 46% 54%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .blob {
+    animation: blob 16s ease-in-out infinite;
+  }
+}
+
+@keyframes blob {
+  0%,
+  100% {
+    border-radius: 58% 42% 55% 45% / 46% 54% 46% 54%;
+  }
+  33% {
+    border-radius: 40% 60% 38% 62% / 58% 40% 60% 42%;
+  }
+  66% {
+    border-radius: 63% 37% 50% 50% / 38% 62% 44% 56%;
+  }
+}
+
+/* Etiqueta de cartón colgante: esquinas superiores recortadas como una etiqueta de equipaje. */
+.hang-tag {
+  clip-path: polygon(16% 0, 84% 0, 100% 22%, 100% 100%, 0 100%, 0 22%);
 }
 
 body {

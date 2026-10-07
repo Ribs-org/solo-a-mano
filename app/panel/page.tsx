@@ -13,10 +13,10 @@ export default async function PanelPage() {
 
   if (!artisan) {
     return (
-      <div className="border border-ink/15 bg-white/60 p-8 text-center">
+      <div className="rounded-2xl border border-ink/15 bg-white/60 p-8 text-center">
         <h1 className="font-display text-2xl">¡Bienvenido a Sólo A Mano!</h1>
         <p className="mt-2">Aún no tienes un perfil de emprendimiento. Créalo para mostrar tus productos.</p>
-        <Link href="/panel/perfil" className="mt-4 inline-block bg-lime uppercase tracking-wide px-6 py-2 text-ink hover:bg-fern hover:text-lime">
+        <Link href="/panel/perfil" className="mt-4 inline-block rounded-full bg-lime px-6 py-2 text-ink hover:bg-fern hover:text-lime">
           Crear mi perfil de artesano
         </Link>
       </div>

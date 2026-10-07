@@ -28,9 +28,9 @@ export default function ImageUploader({
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium">{label}</label>
       <input type="hidden" name={name} value={url} />
-      {url && <Image src={url} alt={label} width={160} height={160} className="object-cover" />}
+      {url && <Image src={url} alt={label} width={160} height={160} className="rounded-xl object-cover" />}
       <input type="file" accept="image/*" onChange={onChange} disabled={busy}
-        className="text-sm file:mr-3 file:border-0 file:bg-lilac-soft file:px-3 file:py-1.5" />
+        className="text-sm file:mr-3 file:rounded-full file:border-0 file:bg-lilac-soft file:px-3 file:py-1.5" />
       {busy && <p className="text-xs text-ink/60">Subiendo…</p>}
       {error && <p className="text-xs text-copihue">{error}</p>}
     </div>

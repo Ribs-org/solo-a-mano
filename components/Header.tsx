@@ -19,7 +19,7 @@ export default async function Header() {
           <Link href="/verificacion" className="rounded px-1 py-2 hover:bg-lime">El sello</Link>
           {user ? (
             <>
-              <Link href="/panel" className="bg-lime uppercase tracking-wide px-4 py-1.5 text-ink hover:bg-fern hover:text-lime">
+              <Link href="/panel" className="rounded-full bg-lime px-4 py-1.5 text-ink hover:bg-fern hover:text-lime">
                 Mi panel
               </Link>
               <form action={signOut}>
@@ -27,7 +27,7 @@ export default async function Header() {
               </form>
             </>
           ) : (
-            <Link href="/cuenta" className="bg-lime uppercase tracking-wide px-4 py-1.5 text-ink hover:bg-fern hover:text-lime">
+            <Link href="/cuenta" className="rounded-full bg-lime px-4 py-1.5 text-ink hover:bg-fern hover:text-lime">
               Entrar
             </Link>
           )}

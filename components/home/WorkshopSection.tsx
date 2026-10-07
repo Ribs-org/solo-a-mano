@@ -11,10 +11,8 @@ export default function WorkshopSection() {
   return (
     <section aria-labelledby="taller-titulo" className="py-16">
       <div className="text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/60">El proceso</p>
-        <h2 id="taller-titulo" className="mt-2 font-display text-4xl font-extrabold uppercase leading-[0.9] tracking-[-0.02em] [font-stretch:85%] sm:text-6xl">
-          Desde el <span className="font-serif font-normal normal-case italic tracking-normal [font-stretch:100%]">taller</span>
-        </h2>
+        <p className="text-xs uppercase tracking-[0.25em] text-ink/60">El proceso</p>
+        <h2 id="taller-titulo" className="mt-2 font-display text-3xl sm:text-4xl">Desde el taller</h2>
         <p className="mx-auto mt-3 max-w-md text-ink/75">
           Detrás de cada pieza hay manos, horas y una mesa llena de materiales. Así se ve antes de llegar a la feria.
         </p>

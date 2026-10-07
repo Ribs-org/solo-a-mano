@@ -2,7 +2,7 @@ import { buildWhatsAppLink } from "@/lib/utils";
 import type { Artisan } from "@/lib/types";
 
 type ContactArtisan = Pick<Artisan, "whatsapp_phone" | "instagram_url" | "facebook_url" | "contact_email">;
-const btn = "px-4 py-1.5 text-sm font-medium";
+const btn = "rounded-full px-4 py-1.5 text-sm font-medium";
 
 export default function ContactButtons({ artisan, message }: { artisan: ContactArtisan; message: string }) {
   return (

@@ -28,7 +28,7 @@ function FileField({ label, kind, name, required, accept, onPath }: {
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium">{label}{required && " *"}</label>
       <input type="file" accept={accept} onChange={onChange} disabled={busy}
-        className="text-sm file:mr-3 file:border-0 file:bg-lilac-soft file:px-3 file:py-1.5" />
+        className="text-sm file:mr-3 file:rounded-full file:border-0 file:bg-lilac-soft file:px-3 file:py-1.5" />
       {busy && <p className="text-xs text-ink/60">Subiendo…</p>}
       {done && <p className="text-xs text-fern">Listo ✓</p>}
       {error && <p className="text-xs text-copihue">{error}</p>}
@@ -64,15 +64,15 @@ export default function VerificationForm() {
       <FileField label="Video del proceso (opcional, máx. 50 MB)" kind="video" name="video_path" accept="video/*" onPath={setPath} />
       <label className="text-sm font-medium">…o link de YouTube (opcional)
         <input name="video_url" type="url" placeholder="https://youtube.com/…"
-          className="w-full border border-ink/15 bg-paper px-3 py-2" />
+          className="w-full rounded-lg border border-ink/15 bg-paper px-3 py-2" />
       </label>
       <label className="text-sm font-medium">Cuéntanos de tu proceso
-        <textarea name="message" rows={3} className="w-full border border-ink/15 bg-paper px-3 py-2"
+        <textarea name="message" rows={3} className="w-full rounded-lg border border-ink/15 bg-paper px-3 py-2"
           placeholder="Qué haces, con qué materiales, hace cuánto…" />
       </label>
       {error && <p className="text-sm text-copihue">{error}</p>}
       <button disabled={pending || !paths.stall_photo_path || !paths.making_photo_path}
-        className="w-fit bg-lime uppercase tracking-wide px-6 py-2 text-ink hover:bg-fern hover:text-lime disabled:opacity-50 disabled:hover:bg-lime disabled:hover:text-ink">
+        className="w-fit rounded-full bg-lime px-6 py-2 text-ink hover:bg-fern hover:text-lime disabled:opacity-50 disabled:hover:bg-lime disabled:hover:text-ink">
         {pending ? "Enviando…" : "Enviar solicitud"}
       </button>
     </form>

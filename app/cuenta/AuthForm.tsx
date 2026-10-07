@@ -40,24 +40,24 @@ export default function AuthForm() {
   }
 
   return (
-    <div className="mx-auto mt-10 w-full max-w-sm border border-ink/15 bg-white/60 p-6">
+    <div className="mx-auto mt-10 w-full max-w-sm rounded-2xl border border-ink/15 bg-white/60 p-6">
       <h1 className="font-display text-2xl">{mode === "login" ? "Entrar" : "Crear cuenta"}</h1>
-      <button onClick={withGoogle} className="mt-4 w-full border border-ink py-2 hover:bg-lilac-soft">
+      <button onClick={withGoogle} className="mt-4 w-full rounded-full border border-ink py-2 hover:bg-lilac-soft">
         Continuar con Google
       </button>
       <div className="my-4 text-center text-xs text-ink/60">o con tu correo</div>
       <form onSubmit={submit} className="flex flex-col gap-3">
         {mode === "registro" && (
           <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Tu nombre"
-            className="border border-ink/15 bg-paper px-3 py-2" />
+            className="rounded-lg border border-ink/15 bg-paper px-3 py-2" />
         )}
         <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Correo"
-          className="border border-ink/15 bg-paper px-3 py-2" />
+          className="rounded-lg border border-ink/15 bg-paper px-3 py-2" />
         <input required type="password" minLength={8} value={password} onChange={(e) => setPassword(e.target.value)}
-          placeholder="Contraseña (mínimo 8)" className="border border-ink/15 bg-paper px-3 py-2" />
+          placeholder="Contraseña (mínimo 8)" className="rounded-lg border border-ink/15 bg-paper px-3 py-2" />
         {error && <p className="text-sm text-copihue">{error}</p>}
         {notice && <p className="text-sm text-fern">{notice}</p>}
-        <button disabled={loading} className="bg-lime py-2 text-ink hover:bg-fern hover:text-lime disabled:opacity-50">
+        <button disabled={loading} className="rounded-full bg-lime py-2 text-ink hover:bg-fern hover:text-lime disabled:opacity-50">
           {mode === "login" ? "Entrar" : "Registrarme"}
         </button>
       </form>
