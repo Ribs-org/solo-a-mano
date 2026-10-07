@@ -18,7 +18,8 @@ export default function Scene({ section }: { section: HomeSection }) {
         className={`parallax absolute top-28 hidden [--speed:-20px] md:block ${right ? "left-[6%]" : "right-[6%]"}`} />
 
       <div className={`flex flex-col ${right ? "items-end text-right" : "items-start"}`}>
-        <div className="max-w-xl">
+        {/* Solo el título lleva margen interior; los productos llegan hasta la orilla de su lado. */}
+        <div className="max-w-xl px-4 md:px-10 lg:px-16">
           <h2 id={`${section.id}-titulo`}
             className="font-display text-5xl font-medium leading-[0.95] tracking-tight sm:text-7xl">
             <span className="font-serif font-normal italic">{section.titleItalic}</span>
@@ -32,11 +33,11 @@ export default function Scene({ section }: { section: HomeSection }) {
         </div>
 
         {/* Productos sueltos sobre una mancha que respira; nada de cajas. */}
-        <div className="relative mt-12 w-full md:w-[68%]">
+        <div className="relative mt-12 w-full md:w-[66%] md:max-w-[1150px]">
           <div aria-hidden="true" className="parallax pointer-events-none absolute -inset-x-[5%] -inset-y-[6%] -z-10 [--speed:40px]">
             <div className={`blob h-full w-full ${section.blob}`} />
           </div>
-          <ul className={`grid grid-cols-2 gap-x-6 gap-y-10 md:block md:h-[38rem] ${right ? "text-left" : ""}`}>
+          <ul className={`grid grid-cols-2 gap-x-6 gap-y-10 px-4 md:block md:aspect-[5/4] md:px-0 ${right ? "text-left" : ""}`}>
             {section.examples.map((p, i) => <FloatingProduct key={p.name} product={p} index={i} mirrored={right} />)}
           </ul>
         </div>

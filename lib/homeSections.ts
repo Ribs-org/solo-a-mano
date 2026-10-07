@@ -43,7 +43,7 @@ export const HOME_SECTIONS: HomeSection[] = [
     sketch: "taza",
     examples: [
       { name: "Incensario espiral esmaltado", price_clp: 14000, image: "/ejemplos/ceramica-incensario-espiral.png",
-        spot: { x: 0, y: 16, w: 32, tilt: -4, speed: -50 } },
+        spot: { x: 1, y: 16, w: 32, tilt: -4, speed: -50 } },
       { name: "Jarrón celadón", price_clp: 28000, image: "/ejemplos/ceramica-jarron-celadon.png",
         spot: { x: 34, y: 0, w: 28, tilt: 3, speed: -85 } },
       { name: "Campanilla de hongos lila", price_clp: 16000, image: "/ejemplos/ceramica-campanilla-hongos-lila.png",

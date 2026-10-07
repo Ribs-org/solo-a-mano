@@ -7,12 +7,13 @@ import { HOME_SECTIONS } from "@/lib/homeSections";
 // Portada en tres escenas en zigzag (izquierda, derecha, izquierda) unidas por un hilo.
 // "Desde el taller", categorías y artesanos con sello quedan fuera de la portada por ahora.
 export default function Home() {
+  // A todo el ancho: las escenas se pegan a las orillas de la pantalla y las manchas pueden salirse por ellas.
   return (
-    <div className="relative mx-auto max-w-6xl overflow-x-clip px-4">
+    <div className="relative overflow-x-clip">
       <Thread />
 
       {/* Portada breve, pegada a la izquierda; a la derecha nace el hilo desde una mancha lima. */}
-      <section className="relative grid items-center gap-10 py-16 md:grid-cols-[1.5fr_1fr] md:py-24">
+      <section className="relative grid items-center gap-10 px-4 md:px-10 lg:px-16 py-16 md:grid-cols-[1.5fr_1fr] md:py-24">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/70">Temporada 2026 · Ferias de Chile</p>
           <h1 className="mt-5 font-display text-5xl font-medium leading-[0.95] tracking-tight sm:text-7xl">

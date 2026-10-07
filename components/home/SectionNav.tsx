@@ -37,7 +37,7 @@ export default function SectionNav({ sections }: { sections: NavItem[] }) {
 
   return (
     <nav aria-label="Secciones" style={{ top }}
-      className="sticky z-30 -mx-4 border-b border-ink/15 bg-bone/90 px-4 py-2 backdrop-blur">
+      className="sticky z-30 border-b border-ink/15 bg-bone/90 px-4 md:px-10 lg:px-16 py-2 backdrop-blur">
       <ul className="flex gap-2 overflow-x-auto">
         {sections.map((s) => (
           <li key={s.id} className="shrink-0">

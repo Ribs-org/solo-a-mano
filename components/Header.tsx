@@ -9,7 +9,7 @@ export default async function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-ink/15 bg-bone/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 md:px-10 lg:px-16 py-3">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.png" alt="Sólo A Mano" width={44} height={44} className="rounded-full" />
           <span className="font-display text-xl font-semibold text-ink">Sólo A Mano</span>
